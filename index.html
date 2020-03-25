@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="./js/echarts.min.js"></script>
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/echarts-amap.min.js"></script>
+  <script src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch">
+  </script>
+  <!-- <script src="http://api.map.baidu.com/api?v=2.0&ak=Wk1knYPmLVPW9aIiWyqqeYUK83BWEK83"></script> -->
+  <!-- <script src="./js/bmap.min.js"></script> -->
+
+  <link rel="stylesheet" href="./style/bootstrap.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/middle.css">
+  <link rel="stylesheet" href="./style/left.css">
+  <link rel="stylesheet" href="./style/right.css">
+</head>
+
+<body>
+  <header>
+    沈阳交通大数据分析平台
+  </header>
+  <div id="main">
+
+    <div class="leftLine">
+      <!-- 左侧第一个表 -->
+      <div class="left_div" id="density">
+        <!-- 切换按钮 -->
+        <div id="densityButtonGroup" class="btn-group" data-toggle="buttons">
+          <button id="timeDensity" class="btn btn-primary">时间分布</button>
+          <button id="spaceDensity" class="btn btn-primary">空间分布</button>
+        </div>
+        <!-- chart主体 -->
+        <div id="densityMapDiv"></div>
+      </div>
+      <!-- 左侧第二个表 -->
+      <div class="left_div" id="migration">
+
+      </div>
+
+    </div>
+
+    <div class="middleLine">
+      <div class="middleDiv">
+        <div id='mainMapTitle'>
+          <p>实时展示</p>
+        </div>
+        <div id="mainMap"></div>
+      </div>
+    </div>
+
+
+    <div class="rightLine">
+      <div class="right_div" id="transitTrips"></div>
+      <div class="right_div"></div>
+    </div>
+
+  </div>
+  <footer></footer>
+
+
+  <script src="./js/middle/mainMap.js"></script>
+  <!-- <script src="./js/left/migration.js"></script> -->
+  <script src="./js/right/regionNum.js"></script>
+  <script src="./js/left/density.js"></script>
+</body>
+
+
+
+</html>

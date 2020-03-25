@@ -1,0 +1,22 @@
+.leftLine {
+    width: 24%;
+    /* height: 540px; */
+    float: left;
+}
+
+.leftLine .left_div {
+    height: 300px;
+    border: aliceblue solid 1px;
+    position: relative;
+}
+
+.leftLine .left_div #densityButtonGroup {
+    position: relative;
+    left: 25%;
+}
+
+.leftLine .left_div #densityMapDiv {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+}

@@ -1,0 +1,10 @@
+.rightLine {
+    width: 24%;
+    /* height: 540px; */
+    float: right;
+}
+
+.rightLine .right_div {
+    height: 300px;
+    border: aliceblue solid 1px;
+}
