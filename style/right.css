@@ -7,4 +7,12 @@
 .rightLine .right_div {
     height: 300px;
     border: aliceblue solid 1px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#regionNumDiv {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
 }

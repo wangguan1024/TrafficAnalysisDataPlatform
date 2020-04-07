@@ -15,9 +15,15 @@
 
   <link rel="stylesheet" href="./style/bootstrap.min.css">
   <link rel="stylesheet" href="./style/style.css">
+  <link rel="stylesheet" href="./style/horn.css">
   <link rel="stylesheet" href="./style/middle.css">
   <link rel="stylesheet" href="./style/left.css">
   <link rel="stylesheet" href="./style/right.css">
+
+  <script src="./js/middle/mainMap.js" async></script>
+  <!-- <script src="./js/left/migration.js"></script> -->
+  <script src="./js/right/regionNum.js" async></script>
+  <script src="./js/left/density.js" async></script>
 </head>
 
 <body>
@@ -28,24 +34,44 @@
 
     <div class="leftLine">
       <!-- 左侧第一个表 -->
-      <div class="left_div" id="density">
+      <div class="left_div">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
+        </div>
         <!-- 切换按钮 -->
-        <div id="densityButtonGroup" class="btn-group" data-toggle="buttons">
+        <!-- <div id="densityButtonGroup" class="btn-group" data-toggle="buttons">
           <button id="timeDensity" class="btn btn-primary">时间分布</button>
           <button id="spaceDensity" class="btn btn-primary">空间分布</button>
-        </div>
+        </div> -->
         <!-- chart主体 -->
         <div id="densityMapDiv"></div>
       </div>
       <!-- 左侧第二个表 -->
-      <div class="left_div" id="migration">
+      <div class="left_div">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
+        </div>
+        <div id="migration">
 
+        </div>
       </div>
 
     </div>
 
     <div class="middleLine">
       <div class="middleDiv">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
+        </div>
         <div id='mainMapTitle'>
           <p>实时展示</p>
         </div>
@@ -55,18 +81,30 @@
 
 
     <div class="rightLine">
-      <div class="right_div" id="transitTrips"></div>
-      <div class="right_div"></div>
+      <div class="right_div">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
+        </div>
+        <div id="regionNumDiv"></div>
+      </div>
+      <div class="right_div">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
+        </div>
+      </div>
     </div>
 
   </div>
   <footer></footer>
 
 
-  <script src="./js/middle/mainMap.js"></script>
-  <!-- <script src="./js/left/migration.js"></script> -->
-  <script src="./js/right/regionNum.js"></script>
-  <script src="./js/left/density.js"></script>
+
 </body>
 
 
