@@ -1,6 +1,5 @@
 .rightLine {
     width: 24%;
-    /* height: 540px; */
     float: right;
 }
 
@@ -15,4 +14,27 @@
     position: relative;
     width: calc(100%);
     height: calc(100%);
+}
+
+#areaSelectDiv {
+    position: relative;
+    text-align: center;
+}
+
+#areaSelectDiv span {
+    color: white;
+}
+
+#areaSelectDiv select {
+    position: relative;
+    color: white;
+    display: inline;
+    border: 1px solid darkgray;
+    border-radius: 25px;
+}
+
+#vehicleTypeDiv {
+    position: relative;
+    width: calc(100%);
+    height: 270px;
 }

@@ -12,9 +12,13 @@
     position: relative;
 }
 
+.middleLine .messageFlow {
+    position: relative;
+}
+
 #mainMapTitle p {
     text-align: center;
-    color: #00F6FF;
+    color: #00f6ff;
     padding-bottom: 3px;
     font-size: large;
     font-weight: bold;

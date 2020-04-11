@@ -1,6 +1,5 @@
 .leftLine {
     width: 24%;
-    /* height: 540px; */
     float: left;
 }
 
@@ -11,13 +10,13 @@
     margin-bottom: 20px;
 }
 
-.leftLine .left_div #densityButtonGroup {
+/* .leftLine .left_div #densityButtonGroup {
     position: relative;
     left: 25%;
-}
+} */
 
 .leftLine .left_div #densityMapDiv {
     position: relative;
-    width: calc(95%);
-    height: calc(95%);
+    width: calc(100%);
+    height: calc(100%);
 }
