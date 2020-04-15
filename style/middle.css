@@ -5,25 +5,38 @@
 }
 
 .middleLine .middleDiv {
+    position: relative;
     width: calc(100%-40px);
     margin-left: 20px;
     margin-right: 20px;
     border: aliceblue solid 1px;
-    position: relative;
+    margin-bottom: 20px;
 }
 
-.middleLine .messageFlow {
+.middleLine .middleDiv2 {
     position: relative;
+    width: calc(100%-40px);
+    margin-left: 20px;
+    margin-right: 20px;
+    border: aliceblue solid 1px;
+    height: 95px;
 }
 
 #mainMapTitle p {
+    position: relative;
     text-align: center;
-    color: #00f6ff;
+    color: white;
     padding-bottom: 3px;
     font-size: large;
     font-weight: bold;
 }
 
 #mainMap {
+    position: relative;
     height: 520px;
+}
+
+#messageFlow {
+    position: relative;
+    height: 100%;
 }

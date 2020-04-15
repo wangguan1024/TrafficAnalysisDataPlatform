@@ -8,10 +8,13 @@
   <script src="./js/jquery-3.4.1.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/echarts-amap.min.js"></script>
+  <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ef8c0411af7113a26a900016d59e1763"></script> -->
   <script
     src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch"></script>
   <!-- <script src="http://api.map.baidu.com/api?v=2.0&ak=Wk1knYPmLVPW9aIiWyqqeYUK83BWEK83"></script> -->
   <!-- <script src="./js/bmap.min.js"></script> -->
+  <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+  <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 
   <link rel="stylesheet" href="./style/bootstrap.min.css" />
   <link rel="stylesheet" href="./style/style.css" />
@@ -21,11 +24,11 @@
   <link rel="stylesheet" href="./style/right.css" />
 
   <script src="./js/middle/mainMap.js" async></script>
-  <script src="./js/left/densityMap.js" async></script>
+  <script src="./js/left/tripNum.js" async></script>
   <script src="./js/left/migrationMap.js" async></script>
-  <script src="./js/right/regionNum.js" async></script>
+  <script src="./js/right/regionStayNum.js" async></script>
   <script src="./js/right/vehicleType.js" async></script>
-
+  <script src="./js/chartsResize.js" async></script>
 </head>
 
 <body>
@@ -43,16 +46,10 @@
           <div class="rb"></div>
           <div class="lb"></div>
         </div>
-        <!-- 切换按钮 -->
-        <!-- <div id="densityButtonGroup" class="btn-group" data-toggle="buttons">
-          <button id="timeDensity" class="btn btn-primary">
-            时间分布
-          </button>
-          <button id="spaceDensity" class="btn btn-primary">
-            空间分布
-          </button>
-        </div> -->
-        <div id="densityMapDiv"></div>
+        <div id="stateSelectDiv">
+          <button id="stateSelectButton">切换为区域分布</button>
+        </div>
+        <div id="tripNumDiv"></div>
       </div>
       <!-- 左侧第二个图-->
       <!-- 人口迁徙图 -->
@@ -82,10 +79,14 @@
         <div id="mainMap"></div>
       </div>
       <!-- 中间下方消息提示窗口 -->
-      <div class="messageFlow">
-        <div class="horn"></div>
-        <div id="messageFlowDiv">
+      <div class="middleDiv2">
+        <div class="horn">
+          <div class="lt"></div>
+          <div class="rt"></div>
+          <div class="rb"></div>
+          <div class="lb"></div>
         </div>
+        <div id="messageFlow"></div>
       </div>
     </section>
 
@@ -99,10 +100,10 @@
           <div class="rb"></div>
           <div class="lb"></div>
         </div>
-        <div id="regionNumDiv"></div>
+        <div id="regionStayNumDiv"></div>
       </div>
       <!-- 右侧第二个图 -->
-      <!-- 交通方式统计分析 -->
+      <!-- 出行交通方式统计分析 -->
       <div class="right_div">
         <div class="horn">
           <div class="lt"></div>

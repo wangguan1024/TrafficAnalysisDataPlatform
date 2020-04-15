@@ -10,6 +10,16 @@ function setVehicleType() {
         //     right: "10%",
         //     bottom: "10%",
         // },
+        title: {
+            text: "出行交通方式统计",
+            textStyle: {
+                color: "white",
+            },
+            left: "center",
+        },
+        tooltip: {
+            trigger: "axis",
+        },
         dataset: {
             source: [
                 {
@@ -60,7 +70,7 @@ function setVehicleType() {
                 show: true,
                 textStyle: {
                     color: "#fff",
-                    fontSize: "12",
+                    fontSize: "8",
                 },
             },
         },
@@ -69,7 +79,7 @@ function setVehicleType() {
                 show: true,
                 textStyle: {
                     color: "#fff",
-                    fontSize: "12",
+                    fontSize: "8",
                 },
             },
         },

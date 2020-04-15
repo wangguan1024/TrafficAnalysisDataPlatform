@@ -1,6 +1,8 @@
 setTimeout(function () {
     window.onresize = function () {
-        densityMap.resize();
-        regionNum.resize();
+        tripNum.resize();
+        // migrationMap.resize();
+        regionStayNum.resize();
+        vehicleType.resize();
     };
 }, 200);

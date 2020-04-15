@@ -10,15 +10,18 @@
     position: relative;
 }
 
-#regionNumDiv {
+#regionStayNumDiv {
     position: relative;
     width: calc(100%);
     height: calc(100%);
 }
 
 #areaSelectDiv {
-    position: relative;
+    position: absolute;
     text-align: center;
+    top: 25px;
+    left: calc(30%);
+    z-index: 2;
 }
 
 #areaSelectDiv span {
@@ -28,9 +31,10 @@
 #areaSelectDiv select {
     position: relative;
     color: white;
+    background-color: #0b122e;
     display: inline;
     border: 1px solid darkgray;
-    border-radius: 25px;
+    border-radius: 5px;
 }
 
 #vehicleTypeDiv {

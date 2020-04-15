@@ -1,11 +1,47 @@
-let densityMap = echarts.init(document.getElementById("densityMapDiv"));
-setTimeDensityShow();
+let tripNum = echarts.init(document.getElementById("tripNumDiv"));
+let stateSelectButton = document.getElementById("stateSelectButton");
 
-function setTimeDensityShow() {
-    densityMap.clear();
+stateSelectButton.addEventListener("click", function () {
+    if (stateSelectButton.innerText === "切换为区域分布") {
+        setChartBySpace();
+        stateSelectButton.innerText = "切换为时间分布";
+    } else {
+        setChartByTime();
+        stateSelectButton.innerText = "切换为区域分布";
+    }
+});
+
+setChartByTime();
+
+function setChartBySpace() {
+    tripNum.showLoading();
+    fetch("http://122.51.19.160:8080/datas.json")
+        .then((response) => {
+            return response.json();
+        })
+        .then((geoJson) => {
+            tripNum.hideLoading();
+            echarts.registerMap("天津", geoJson);
+            let options = {
+                title: {
+                    text: "各区域人口出行量分析",
+                    textStyle: {
+                        color: "white",
+                    },
+                    left: "center",
+                },
+                series: {
+                    type: "map",
+                    mapType: "天津",
+                },
+            };
+        });
+}
+
+function setChartByTime() {
     let options = {
         title: {
-            text: "区域人口密度时间变化趋势",
+            text: "各时间段人口出行量分析",
             textStyle: {
                 color: "white",
             },
@@ -56,25 +92,24 @@ function setTimeDensityShow() {
         },
         xAxis: {
             type: "category",
-            name: "时间",
-            nameLocation: "middle",
-            nameTextStyle: {
-                color: "#fff",
-                fontSize: "12",
-            },
+            // name: "时间",
+            // nameLocation: "middle",
+            // nameTextStyle: {
+            //     color: "#fff",
+            //     fontSize: "12",
+            // },
             axisLabel: {
                 textStyle: {
                     color: "#fff",
-                    fontSize: "12",
+                    fontSize: "8",
                 },
             },
         },
         yAxis: {
             axisLabel: {
-                show: true,
                 textStyle: {
                     color: "#fff",
-                    fontSize: "12",
+                    fontSize: "8",
                 },
             },
         },
@@ -86,11 +121,5 @@ function setTimeDensityShow() {
             },
         },
     };
-    densityMap.setOption(options);
+    tripNum.setOption(options);
 }
-
-// setTimeout(function () {
-//     window.onresize = function () {
-//         densityMap.resize();
-//     };
-// }, 200);

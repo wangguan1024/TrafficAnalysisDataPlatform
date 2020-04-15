@@ -1,7 +1,10 @@
 * {
     margin: 0px;
     padding: 0px;
-    background-color: #0B122E;
+}
+
+body {
+    background-color: #0b122e;
 }
 
 header {
@@ -10,7 +13,7 @@ header {
     background-image: url("./images/title.png");
     background-size: 100%;
     text-align: center;
-    color: #00F6FF;
+    color: #00f6ff;
     font-size: 40px;
     margin: 10px 0;
 }
