@@ -19,7 +19,6 @@
     margin-left: 20px;
     margin-right: 20px;
     border: aliceblue solid 1px;
-    height: 95px;
 }
 
 #mainMapTitle p {
@@ -38,5 +37,6 @@
 
 #messageFlow {
     position: relative;
-    height: 100%;
+    width: calc(100%);
+    height: 170px;
 }

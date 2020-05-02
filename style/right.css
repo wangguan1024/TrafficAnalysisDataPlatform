@@ -40,5 +40,5 @@
 #vehicleTypeDiv {
     position: relative;
     width: calc(100%);
-    height: 270px;
+    height: calc(100%);
 }

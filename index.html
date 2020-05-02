@@ -2,38 +2,48 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Title</title>
-  <script src="./js/echarts.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沈阳交通大数据分析平台</title>
   <script src="./js/jquery-3.4.1.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/echarts-amap.min.js"></script>
-  <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=ef8c0411af7113a26a900016d59e1763"></script> -->
+  <script src="./js/Echarts/echarts.min.js"></script>
+  <script src="./js/Echarts/registerMap.js"></script>
+
   <script
     src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch"></script>
-  <!-- <script src="http://api.map.baidu.com/api?v=2.0&ak=Wk1knYPmLVPW9aIiWyqqeYUK83BWEK83"></script> -->
-  <!-- <script src="./js/bmap.min.js"></script> -->
+
+  <script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
   <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
   <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 
   <link rel="stylesheet" href="./style/bootstrap.min.css" />
   <link rel="stylesheet" href="./style/style.css" />
+  <link rel="stylesheet" href="./style/header.css" />
+  <link rel="stylesheet" href="./style/foot.css">
   <link rel="stylesheet" href="./style/horn.css" />
   <link rel="stylesheet" href="./style/middle.css" />
   <link rel="stylesheet" href="./style/left.css" />
   <link rel="stylesheet" href="./style/right.css" />
 
+  <script src="./js/header/timeClock.js" async></script>
+  <script src="./js/header/userMenu.js" async></script>
   <script src="./js/middle/mainMap.js" async></script>
+  <script src="./js/middle/messageFlow.js" async></script>
   <script src="./js/left/tripNum.js" async></script>
   <script src="./js/left/migrationMap.js" async></script>
   <script src="./js/right/regionStayNum.js" async></script>
   <script src="./js/right/vehicleType.js" async></script>
-  <script src="./js/chartsResize.js" async></script>
+  <script src="./js/Echarts/chartsResize.js" async></script>
 </head>
 
 <body>
   <header>
+    <div id="timeDiv"></div>
     沈阳交通大数据分析平台
+    <div id="userMenu">
+      <a href="#">退出</a>
+    </div>
   </header>
   <main id="main">
     <section class="leftLine">
@@ -64,7 +74,7 @@
       </div>
     </section>
 
-    <!-- 中间主图功能未明确 -->
+    <!-- 中间主图热力图 -->
     <section class="middleLine">
       <div class="middleDiv">
         <div class="horn">
@@ -113,9 +123,20 @@
         </div>
         <div id="areaSelectDiv">
           <span>选择区域:</span>
-          <select name="" id="">
-            <option selected>总览</option>
-            <option>temp1</option>
+          <select name="" id="areaSelect">
+            <option selected>和平区</option>
+            <option>辽中区</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
+            <option>temp2</option>
             <option>temp2</option>
           </select>
         </div>
