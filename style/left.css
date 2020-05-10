@@ -1,20 +1,17 @@
-.leftLine {
+#leftLine {
     position: relative;
     width: 24%;
-    float: left;
+    display: flex;
+    flex-direction: column;
 }
 
-.leftLine .left_div {
+.left_div {
     height: 300px;
     border: aliceblue solid 1px;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-/* .leftLine .left_div #densityButtonGroup {
-    position: relative;
-    left: 25%;
-} */
 #stateSelectButton {
     position: absolute;
     top: 25px;
@@ -28,13 +25,17 @@
     padding: 2px;
 }
 
-.leftLine .left_div #tripNumDiv {
+#tripNumDivByTime,
+#tripNumDivBySpace {
     position: relative;
     width: calc(100%);
     height: calc(100%);
 }
+#tripNumDivBySpace {
+    display: none;
+}
 
-.leftLine .left_div #migrationMap {
+#migrationMapDiv {
     position: relative;
     width: calc(100%);
     height: calc(100%);

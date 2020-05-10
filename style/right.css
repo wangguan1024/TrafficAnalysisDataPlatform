@@ -1,13 +1,15 @@
-.rightLine {
+#rightLine {
+    position: relative;
     width: 24%;
-    float: right;
+    display: flex;
+    flex-direction: column;
 }
 
-.rightLine .right_div {
+.right_div {
     height: 300px;
     border: aliceblue solid 1px;
-    margin-bottom: 20px;
     position: relative;
+    margin-bottom: 40px;
 }
 
 #regionStayNumDiv {

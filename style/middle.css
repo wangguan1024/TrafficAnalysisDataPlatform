@@ -1,24 +1,16 @@
-.middleLine {
+#middleLine {
     width: 52%;
-    height: auto;
-    float: left;
 }
-
-.middleLine .middleDiv {
+.middleLineDiv {
     position: relative;
-    width: calc(100%-40px);
-    margin-left: 20px;
-    margin-right: 20px;
+    width: calc(100%-80px);
+    margin-left: 40px;
+    margin-right: 40px;
     border: aliceblue solid 1px;
+}
+#mainMapAndTitle {
     margin-bottom: 20px;
-}
-
-.middleLine .middleDiv2 {
-    position: relative;
-    width: calc(100%-40px);
-    margin-left: 20px;
-    margin-right: 20px;
-    border: aliceblue solid 1px;
+    height: 440px;
 }
 
 #mainMapTitle p {
@@ -29,13 +21,26 @@
     font-size: large;
     font-weight: bold;
 }
-
-#mainMap {
-    position: relative;
-    height: 520px;
+#mainMapSelect {
+    position: absolute;
+    z-index: 2;
+    right: calc(1.5%);
+    top: calc(2%);
+}
+#mainMapSelectBtn {
+    color: white;
+    background-color: #0b122e;
+    border: 1px solid darkgray;
+    border-radius: 5px;
 }
 
-#messageFlow {
+#mainMapDiv {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+}
+
+#messageFlowDiv {
     position: relative;
     width: calc(100%);
     height: 170px;

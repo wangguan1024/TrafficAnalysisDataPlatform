@@ -2,150 +2,199 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>沈阳交通大数据分析平台</title>
-  <script src="./js/jquery-3.4.1.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
-  <script src="./js/Echarts/echarts.min.js"></script>
-  <script src="./js/Echarts/registerMap.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script
-    src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch"></script>
+    <title>沈阳交通大数据分析平台</title>
 
-  <script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
-  <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
-  <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 
-  <link rel="stylesheet" href="./style/bootstrap.min.css" />
-  <link rel="stylesheet" href="./style/style.css" />
-  <link rel="stylesheet" href="./style/header.css" />
-  <link rel="stylesheet" href="./style/foot.css">
-  <link rel="stylesheet" href="./style/horn.css" />
-  <link rel="stylesheet" href="./style/middle.css" />
-  <link rel="stylesheet" href="./style/left.css" />
-  <link rel="stylesheet" href="./style/right.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="./js/Echarts/echarts.min.js"></script>
+    <script src="./js/Echarts/registerMap.js"></script>
+    <script src="./js/Echarts/geoCoordMap.js"></script>
 
-  <script src="./js/header/timeClock.js" async></script>
-  <script src="./js/header/userMenu.js" async></script>
-  <script src="./js/middle/mainMap.js" async></script>
-  <script src="./js/middle/messageFlow.js" async></script>
-  <script src="./js/left/tripNum.js" async></script>
-  <script src="./js/left/migrationMap.js" async></script>
-  <script src="./js/right/regionStayNum.js" async></script>
-  <script src="./js/right/vehicleType.js" async></script>
-  <script src="./js/Echarts/chartsResize.js" async></script>
+    <script
+        src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch"></script>
+
+    <script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+
+    <link rel="stylesheet" href="./style/alert.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/foot.css">
+    <link rel="stylesheet" href="./style/lib/horn.css">
+    <link rel="stylesheet" href="./style/lib/quit_btn.css">
+    <link rel="stylesheet" href="./style/middle.css">
+    <link rel="stylesheet" href="./style/left.css">
+    <link rel="stylesheet" href="./style/right.css">
+
+
+    <script src="./js/header/timeClock.js" async></script>
+    <script src="./js/header/userMenu.js" async></script>
+    <script src="./js/middle/mainMap.js" async></script>
+    <script src="./js/middle/messageFlow.js" async></script>
+    <script src="./js/left/tripNum.js" async></script>
+    <script src="./js/left/migrationMap.js" async></script>
+    <script src="./js/right/regionStayNum.js" async></script>
+    <script src="./js/right/vehicleType.js" async></script>
 </head>
 
 <body>
-  <header>
-    <div id="timeDiv"></div>
-    沈阳交通大数据分析平台
-    <div id="userMenu">
-      <a href="#">退出</a>
-    </div>
-  </header>
-  <main id="main">
-    <section class="leftLine">
-      <!-- 左侧第一个图 -->
-      <!-- 各时间段出行量 -->
-      <div class="left_div">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
+    <header>
+        <div id="timeDiv"></div>
+        沈阳交通大数据分析平台
+        <div id="userMenu">
+            <span class="quit_btn"></span>
+            <span>退出</span>
         </div>
-        <div id="stateSelectDiv">
-          <button id="stateSelectButton">切换为区域分布</button>
-        </div>
-        <div id="tripNumDiv"></div>
-      </div>
-      <!-- 左侧第二个图-->
-      <!-- 人口迁徙图 -->
-      <div class="left_div">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
-        </div>
-        <div id="migrationMap"></div>
-      </div>
-    </section>
+    </header>
+    <main id="main">
+        <!-- 隐藏菜单--主图区域选择 -->
+        <div class="modal" id="mymodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">选择热力图重点区域</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table
+                            style="border-width: 0px; padding: 0px; margin: 0px; border-spacing: 0px; border-collapse: collapse; font-size:20px;">
+                            <tr>
+                                <td><input type="checkbox" name="维华商业广场" class="myCheckBox">维华商业广场&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="八一公园" class="myCheckBox">八一公园&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="沈阳故宫" class="myCheckBox">沈阳故宫&nbsp;&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="沈阳中街" class="myCheckBox">沈阳中街&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="沈阳西湖风景区" class="myCheckBox">沈阳西湖风景区&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="沈阳国家森林公园" class="myCheckBox">沈阳国家森林公园&nbsp;&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="沈阳怪坡风景区" class="myCheckBox">沈阳怪坡风景区&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="新民清真寺" class="myCheckBox">新民清真寺&nbsp;&nbsp;</td>
+                                <td><input type="checkbox" name="豪林购物中心" class="myCheckBox">豪林购物中心&nbsp;&nbsp;</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">确定</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <section id="leftLine">
+            <!-- 左侧第一个图 -->
+            <!-- 各时间段出行量 -->
+            <div class="left_div">
+                <div class="horn">
+                    <div class="lt"></div>
+                    <div class="rt"></div>
+                    <div class="rb"></div>
+                    <div class="lb"></div>
+                </div>
+                <div id="stateSelectDiv">
+                    <button id="stateSelectButton">切换为区域分布</button>
+                </div>
+                <div id="tripNumDivByTime"></div>
+                <div id="tripNumDivBySpace"></div>
+            </div>
+            <!-- 左侧第二个图-->
+            <!-- 人口迁徙图 -->
+            <div class="left_div">
+                <div class="horn">
+                    <div class="lt"></div>
+                    <div class="rt"></div>
+                    <div class="rb"></div>
+                    <div class="lb"></div>
+                </div>
+                <div id="migrationMapDiv"></div>
+            </div>
+        </section>
 
-    <!-- 中间主图热力图 -->
-    <section class="middleLine">
-      <div class="middleDiv">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
-        </div>
-        <div id="mainMapTitle">
-          <p>实时展示</p>
-        </div>
-        <div id="mainMap"></div>
-      </div>
-      <!-- 中间下方消息提示窗口 -->
-      <div class="middleDiv2">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
-        </div>
-        <div id="messageFlow"></div>
-      </div>
-    </section>
+        <!-- 中间主图热力图 -->
+        <section id="middleLine">
+            <div class="middleLineDiv">
+                <div class="horn">
+                    <div class="lt"></div>
+                    <div class="rt"></div>
+                    <div class="rb"></div>
+                    <div class="lb"></div>
+                </div>
+                <div id="mainMapAndTitle">
+                    <div id="mainMapTitle">
+                        <p>实时展示</p>
+                    </div>
+                    <div id="mainMapSelect">
+                        <button id="mainMapSelectBtn">&nbsp;选择区域&nbsp;</button>
+                    </div>
+                    <div id="mainMapDiv"></div>
+                </div>
+                <!-- 中间下方消息提示窗口 -->
+                <div id="messageFlowDiv">
+                </div>
+            </div>
 
-    <section class="rightLine">
-      <!-- 右侧第一个图 -->
-      <!-- 各区域驻留人数排行 -->
-      <div class="right_div">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
-        </div>
-        <div id="regionStayNumDiv"></div>
-      </div>
-      <!-- 右侧第二个图 -->
-      <!-- 出行交通方式统计分析 -->
-      <div class="right_div">
-        <div class="horn">
-          <div class="lt"></div>
-          <div class="rt"></div>
-          <div class="rb"></div>
-          <div class="lb"></div>
-        </div>
-        <div id="areaSelectDiv">
-          <span>选择区域:</span>
-          <select name="" id="areaSelect">
-            <option selected>和平区</option>
-            <option>辽中区</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-            <option>temp2</option>
-          </select>
-        </div>
+        </section>
 
-        <div id="vehicleTypeDiv"></div>
-      </div>
-    </section>
-  </main>
-  <footer></footer>
+        <section id="rightLine">
+            <!-- 右侧第一个图 -->
+            <!-- 各区域驻留人数排行 -->
+            <div class="right_div">
+                <div class="horn">
+                    <div class="lt"></div>
+                    <div class="rt"></div>
+                    <div class="rb"></div>
+                    <div class="lb"></div>
+                </div>
+                <div id="regionStayNumDiv"></div>
+            </div>
+            <!-- 右侧第二个图 -->
+            <!-- 出行交通方式统计分析 -->
+            <div class="right_div">
+                <div class="horn">
+                    <div class="lt"></div>
+                    <div class="rt"></div>
+                    <div class="rb"></div>
+                    <div class="lb"></div>
+                </div>
+                <div id="areaSelectDiv">
+                    <span>选择区域:</span>
+                    <select name="" id="areaSelect">
+                        <option selected>和平区</option>
+                        <option>辽中区</option>
+                        <option>铁西区</option>
+                        <option>新民市</option>
+                        <option>苏家屯区</option>
+                        <option>沈河区</option>
+                        <option>康平县</option>
+                        <option>法库县</option>
+                        <option>沈北新区</option>
+                        <option>于洪区</option>
+                        <option>浑南区</option>
+                        <option>皇姑区</option>
+                        <option>大东区</option>
+                    </select>
+                </div>
+
+                <div id="vehicleTypeDiv"></div>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+    <script>
+        $(function () {
+            $("#mainMapSelectBtn").click(function () {
+                $("#mymodal").modal();
+            });
+        });
+    </script>
 </body>
 
 </html>

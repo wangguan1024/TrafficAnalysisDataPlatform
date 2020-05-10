@@ -1,8 +1,9 @@
-let regionStayNum = echarts.init(document.getElementById("regionStayNumDiv"));
 setRegionStayNum();
 
 function setRegionStayNum() {
-    //chart初始化
+    let regionStayNum = echarts.init(
+        document.getElementById("regionStayNumDiv")
+    );
     regionStayNum.setOption({
         title: {
             text: "区域驻留人口密度排行",
@@ -13,8 +14,12 @@ function setRegionStayNum() {
         },
         tooltip: {
             //饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
-            trigger: "item",
-            formatter: "{b}<br/>{c}",
+            // trigger: "item",
+            formatter: function (params, ticket, callback) {
+                let name = params.name;
+                let value = params.value;
+                return name + "<br/>数量：" + value;
+            },
         },
 
         roseType: "angle", //设置成南丁格尔图
@@ -97,6 +102,7 @@ function setRegionStayNum() {
             return response.json();
         })
         .then((data) => {
+            // console.log(data);
             data = getTopNArea(data, 6);
             regionStayNum.setOption({
                 series: {
@@ -106,33 +112,35 @@ function setRegionStayNum() {
                     data: data,
                 },
             });
+            window.addEventListener("resize", function () {
+                regionStayNum.resize();
+            });
         })
         .catch((err) => {
             console.log(err);
         });
-}
+    function getTopNArea(dataList, N) {
+        showList = [];
+        showLength = N;
+        dataList = dataList.sort(function (a, b) {
+            return b.value - a.value;
+        });
 
-function getTopNArea(dataList, N) {
-    showList = [];
-    showLength = N;
-    dataList = dataList.sort(function (a, b) {
-        return b.value - a.value;
-    });
+        //将排名前showLength的地区加入展示list
+        for (let index = 0; index < showLength - 1; index++) {
+            const data = dataList[index];
+            showList.push(data);
+        }
 
-    //将排名前showLength的地区加入展示list
-    for (let index = 0; index < showLength - 1; index++) {
-        const data = dataList[index];
-        showList.push(data);
+        //将剩余的地区加入“其他”地区
+        let valueSum = 0;
+        for (let index = showLength - 1; index < dataList.length; index++) {
+            valueSum += dataList[index].value;
+        }
+        let otherArea = new Object();
+        otherArea.name = "其他地区";
+        otherArea.value = valueSum;
+        showList.push(otherArea);
+        return showList;
     }
-
-    //将剩余的地区加入“其他”地区
-    let valueSum = 0;
-    for (let index = showLength - 1; index < dataList.length; index++) {
-        valueSum += dataList[index].value;
-    }
-    let otherArea = new Object();
-    otherArea.name = "其他地区";
-    otherArea.value = valueSum;
-    showList.push(otherArea);
-    return showList;
 }
