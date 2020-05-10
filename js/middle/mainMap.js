@@ -10,9 +10,6 @@ function setMainMap() {
         mapStyle: "amap://styles/40035571fa9fdd05a26fe1b05f48fdc9",
     });
     // map.setDefaultCursor("pointer");
-    // map.on("click", function (e) {
-    //     console.log(e);
-    // });
 
     //将沈阳各个区给划分出来
     let area = [
@@ -93,7 +90,7 @@ function setMainMap() {
         polygon.setPath(pathArray);
         map.add(polygon);
     });
-    let keyPointList = [
+    let keyPointDict = [
         {
             name: "维华商业广场",
             lng: 123.404052,
@@ -154,17 +151,87 @@ function setMainMap() {
             fillColor: "red",
             fillOpacity: 0.2,
             zIndex: 11,
-            // bubble: false,
-            // cursor: "pointer",
+            cursor: "pointer",
         });
-        let mouseoverHandler = function (e) {
-            let infoWindow = new AMap.InfoWindow({
+        circle.on("click", function (e) {
+            new AMap.InfoWindow({
                 content: element.name,
             }).open(map, e.lnglat);
-        };
-        circle.on("mouseover", mouseoverHandler);
+        });
     }
-    // getRegionStayNumData();
+    //重点区域初始化
+    let keyPointObjList = [];
+    for (let i = 0; i < keyPointDict.length; i++) {
+        let element = keyPointDict[i];
+        let name = element.name;
+        let center = new AMap.LngLat(element.lng, element.lat);
+        let circle = new AMap.Circle({
+            map: map,
+            center: center,
+            radius: 500,
+            strokeColor: "white",
+            strokeWeight: 0.1,
+            strokeOpacity: 0.5,
+            fillColor: "yellow",
+            fillOpacity: 0.2,
+            zIndex: 11,
+            cursor: "pointer",
+        });
+        let obj = { name: name, circle: circle };
+        keyPointObjList.push(obj);
+        //给每个circle设置click事件
+        circle.on("click", function (e) {
+            //设置消息弹窗
+            new AMap.InfoWindow({
+                content: element.name,
+            }).open(map, e.lnglat);
+            //将选择区域数据发送到服务端
+            let oriData = { places: [name] };
+            console.log(JSON.stringify(oriData));
+            fetch("http://122.51.19.160:8080/putPlaces", {
+                method: "POST", // or 'PUT'
+                body: JSON.stringify(oriData), // data can be `string` or {object}!
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                }),
+            }).catch((err) => {
+                console.log(err);
+            });
+        });
+        //将所有circle隐藏
+        circle.hide();
+    }
+    //获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
+    let mainMapConfirmBtn = document.getElementById("mainMapConfirmBtn");
+    mainMapConfirmBtn.addEventListener("click", function () {
+        //清空上一次的区域
+        for (let index = 0; index < keyPointObjList.length; index++) {
+            let element = keyPointObjList[index];
+            element.circle.hide();
+        }
+        //获取checkbox选择的重点区域
+        let keyPointSelectList = [];
+        let myCheckBoxTable = document.getElementById("myCheckBoxTable");
+        for (let i = 0; i < myCheckBoxTable.rows.length; i++) {
+            for (let j = 0; j < myCheckBoxTable.rows[i].cells.length; j++) {
+                let element = myCheckBoxTable.rows[i].cells[j].children[0];
+                if (element.checked) {
+                    keyPointSelectList.push(element.name);
+                }
+            }
+        }
+        //将选择的重点区域显示在主图上
+        for (let index = 0; index < keyPointSelectList.length; index++) {
+            let selectKeyPoint = keyPointSelectList[index];
+            for (let j = 0; j < keyPointObjList.length; j++) {
+                if (selectKeyPoint === keyPointObjList[j].name) {
+                    keyPointObjList[j].circle.show();
+                }
+            }
+        }
+    });
+
+    getRegionStayNumData();
     //websocket获取热力图数据，并渲染进入热力图
     function getRegionStayNumData() {
         let host = "http://122.51.19.160:8080";
@@ -186,28 +253,4 @@ function setMainMap() {
             });
         });
     }
-
-    /**
-     * 信息标记
-     */
-    // function addMarker() {
-    //     marker = new AMap.Marker({
-    //         position: [123.3321228, 41.65560913],
-    //         // offset: new AMap.Pixel(-13, -30)
-    //     });
-
-    //     let markerImg = document.createElement("img");
-    //     markerImg.className = 'markerInglat';
-    //     markerImg.src = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png";
-    //     let markerContent = document.createElement("div");
-    //     let markerSpan = document.createElement("span");
-    //     markerSpan.className = 'marker';
-    //     markerSpan.innerHTML = '人群密度超出范围';
-    //     markerContent.appendChild(markerImg);
-    //     markerContent.appendChild(markerSpan);
-    //     marker.setContent(markerContent);
-
-    //     marker.setMap(map);
-    // }
-    // addMarker();
 }
