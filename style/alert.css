@@ -1,7 +1,8 @@
 .modal-content {
     /*弹窗的边框、边距、背景色和阴影等样式*/
     position: relative;
-    background-color: white;
+    background-color: darkslategray;
+    color: rgba(255, 255, 255, 0.5);
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid #999;
@@ -130,3 +131,7 @@
 /* #mymodal {
     position: absolute;
 } */
+
+.btn {
+    color: black;
+}

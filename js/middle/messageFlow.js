@@ -48,7 +48,7 @@ function setMessageFlow() {
         let StompClient = Stomp.over(Socket);
         StompClient.connect({}, function () {
             StompClient.subscribe("/user/place/hotplace", function (res) {
-                console.log(data);
+                // console.log(data);
                 let newDataObj = JSON.parse(res.body);
                 //检测地名是否变化
                 if (newDataObj.name === lastDataObj.name) {
@@ -142,7 +142,6 @@ function setMessageFlow() {
                     });
                 }
                 lastDataObj = newDataObj;
-                console.log(click);
             });
         });
     }

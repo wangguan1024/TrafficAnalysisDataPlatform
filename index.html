@@ -8,10 +8,12 @@
     <title>沈阳交通大数据分析平台</title>
 
 
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
     <script src="./js/Echarts/echarts.min.js"></script>
     <script src="./js/Echarts/registerMap.js"></script>
     <script src="./js/Echarts/geoCoordMap.js"></script>
@@ -25,6 +27,7 @@
 
     <link rel="stylesheet" href="./style/alert.css">
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/header.css">
     <link rel="stylesheet" href="./style/foot.css">
     <link rel="stylesheet" href="./style/lib/horn.css">
     <link rel="stylesheet" href="./style/lib/quit_btn.css">
@@ -33,8 +36,7 @@
     <link rel="stylesheet" href="./style/right.css">
 
 
-    <script src="./js/header/timeClock.js" async></script>
-    <script src="./js/header/userMenu.js" async></script>
+    <script src="./js/header/header.js" async></script>
     <script src="./js/middle/mainMap.js" async></script>
     <script src="./js/middle/messageFlow.js" async></script>
     <script src="./js/left/tripNum.js" async></script>
@@ -45,12 +47,34 @@
 
 <body>
     <header>
-        <div id="timeDiv"></div>
-        沈阳交通大数据分析平台
-        <div id="userMenu">
-            <span class="quit_btn"></span>
-            <span>退出</span>
+
+        <div id="title">
+            沈阳交通大数据分析平台
         </div>
+
+
+        <nav>
+            <div class="navLeftDiv">
+                <span class="navLeftSpan" id="homePage">
+                    <span class="glyphicon glyphicon-home"></span> 主页面
+                </span>
+                <span class="navLeftSpan">
+                    <span class="glyphicon glyphicon-facetime-video"></span> 热点监控
+                </span>
+                <span class="navLeftSpan">
+                    <span class="glyphicon glyphicon-download-alt"></span> 报表下载
+                </span>
+            </div>
+            <div class="navRightDiv">
+                <span class="navRightSpan" id="timeClock">
+                    <span class="glyphicon glyphicon-time"></span>
+                    <div id="timeDiv"></div>
+                </span>
+                <span class="navRightSpan" id="closePage">
+                    <span class="glyphicon glyphicon-off"></span> 退出
+                </span>
+            </div>
+        </nav>
     </header>
     <main id="main">
         <!-- 隐藏菜单--主图区域选择 -->
@@ -83,8 +107,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-primary" id="mainMapConfirmBtn">确定</button>
+                        <button type="button" class="btn " data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn " data-dismiss="modal" id="mainMapConfirmBtn">确定</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -129,7 +153,7 @@
                 </div>
                 <div id="mainMapAndTitle">
                     <div id="mainMapTitle">
-                        <p>实时展示</p>
+                        <p>人群热力图</p>
                     </div>
                     <div id="mainMapSelect">
                         <button id="mainMapSelectBtn">&nbsp;选择区域&nbsp;</button>
@@ -187,7 +211,6 @@
             </div>
         </section>
     </main>
-    <footer></footer>
     <script>
         $(function () {
             $("#mainMapSelectBtn").click(function () {

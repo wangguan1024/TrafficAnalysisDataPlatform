@@ -19,6 +19,7 @@ function setTrimNum() {
     });
 
     setChartByTime();
+    console.log("hello");
     // setChartBySpace();
 
     function setChartByTime() {
