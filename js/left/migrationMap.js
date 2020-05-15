@@ -99,7 +99,7 @@ function setMigrationMap() {
                             },
                             effect: {
                                 show: true,
-                                period: 6,
+                                period: 3,
                                 trailLength: 0.7,
                                 symbol: "arrow",
                                 symbolSize: 5,
@@ -180,13 +180,6 @@ function setMigrationMap() {
             });
 
             migrationMap.setOption({
-                title: {
-                    text: "区域迁徙图",
-                    textStyle: {
-                        color: "white",
-                    },
-                    left: "center",
-                },
                 tooltip: {
                     trigger: "item",
                 },

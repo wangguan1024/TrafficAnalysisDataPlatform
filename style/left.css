@@ -2,20 +2,38 @@
     position: relative;
     width: 24%;
     height: 100%;
+    display: flex;
+    justify-content: space-around;
     flex-direction: column;
 }
 
 .left_div {
-    height: 300px;
-    border: aliceblue solid 1px;
+    height: 42%;
+    border: snow solid 1px;
     position: relative;
-    margin-bottom: 40px;
+}
+
+#tripNumTitleDiv,
+#migrationMapTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-10%);
+    width: 100%;
+    text-align: center;
+}
+
+#tripNumTitleDiv span,
+#migrationMapTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: large;
+    font-weight: bold;
 }
 
 #stateSelectButton {
     position: absolute;
-    top: 25px;
-    left: calc(33%);
+    top: calc(3%);
+    right: calc(3%);
     z-index: 2;
     color: white;
     background-color: #0b122e;

@@ -21,7 +21,7 @@
     <script
         src="https://webapi.amap.com/maps?v=1.4.15&key=c4f16b4da2e9c9023eac7f81d021bb1b&plugin=AMap.DistrictSearch"></script>
 
-    <script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+    <script src="https://webapi.amap.com/ui/1.1/main.js"></script>
     <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 
@@ -123,6 +123,9 @@
                     <div class="rb"></div>
                     <div class="lb"></div>
                 </div>
+                <div id="tripNumTitleDiv">
+                    <span id="tripNumTitle">各时间人口出行量分析</span>
+                </div>
                 <div id="stateSelectDiv">
                     <button id="stateSelectButton">切换为区域分布</button>
                 </div>
@@ -138,11 +141,14 @@
                     <div class="rb"></div>
                     <div class="lb"></div>
                 </div>
+                <div id="migrationMapTitleDiv">
+                    <span>区域迁徙图</span>
+                </div>
                 <div id="migrationMapDiv"></div>
             </div>
         </section>
 
-        <!-- 中间主图热力图 -->
+        <!-- 中间主图 -->
         <section id="middleLine">
             <div class="middleLineDiv">
                 <div class="horn">
@@ -152,16 +158,19 @@
                     <div class="lb"></div>
                 </div>
                 <div id="mainMapAndTitle">
-                    <div id="mainMapTitle">
-                        <p>人群热力图</p>
+                    <div id="mainMapTitleDiv">
+                        <span>人群热力图</span>
                     </div>
-                    <div id="mainMapSelect">
-                        <button id="mainMapSelectBtn">&nbsp;选择区域&nbsp;</button>
-                    </div>
+                    <button id="mainMapSelectBtn">&nbsp;选择区域&nbsp;</button>
                     <div id="mainMapDiv"></div>
                 </div>
                 <!-- 中间下方消息提示窗口 -->
-                <div id="messageFlowDiv">
+                <div id="messageFlowAndCloseBtn">
+                    <div id="messageFlowTitleDiv">
+                        <span>热点地区实时监测</span>
+                    </div>
+                    <span class="glyphicon glyphicon-remove" id="closeMessageFlowDivBtn"></span>
+                    <div id="messageFlowDiv"></div>
                 </div>
             </div>
 
@@ -177,6 +186,9 @@
                     <div class="rb"></div>
                     <div class="lb"></div>
                 </div>
+                <div id="regionStayNumTitleDiv">
+                    <span>区域驻留人口密度排行</span>
+                </div>
                 <div id="regionStayNumDiv"></div>
             </div>
             <!-- 右侧第二个图 -->
@@ -187,6 +199,9 @@
                     <div class="rt"></div>
                     <div class="rb"></div>
                     <div class="lb"></div>
+                </div>
+                <div id="vehicleTypeTitleDiv">
+                    <span>出行交通方式统计</span>
                 </div>
                 <div id="areaSelectDiv">
                     <span>选择区域:</span>

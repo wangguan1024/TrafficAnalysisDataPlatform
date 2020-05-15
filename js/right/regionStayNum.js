@@ -5,13 +5,6 @@ function setRegionStayNum() {
         document.getElementById("regionStayNumDiv")
     );
     regionStayNum.setOption({
-        title: {
-            text: "区域驻留人口密度排行",
-            textStyle: {
-                color: "white",
-            },
-            left: "center",
-        },
         tooltip: {
             //饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）
             // trigger: "item",
@@ -35,10 +28,11 @@ function setRegionStayNum() {
         },
         itemStyle: {
             // 设置扇形的颜色：红色系
-            color: "#c23531",
+            color: "navy",
             shadowBlur: 200,
             shadowColor: "rgba(0, 0, 0, 0.5)",
         },
+
         visualMap: {
             // 不显示 visualMap 组件，只用于明暗度的映射
             show: false,
@@ -48,7 +42,7 @@ function setRegionStayNum() {
             max: 300,
             inRange: {
                 // 明暗度的范围是 0 到 1
-                colorLightness: [0.85, 0.25],
+                colorLightness: [0.9, 0.3],
             },
         },
     });

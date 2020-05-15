@@ -22,13 +22,6 @@ function setVehicleType() {
                     document.getElementById("vehicleTypeDiv")
                 );
                 let options = {
-                    title: {
-                        text: "出行交通方式统计",
-                        textStyle: {
-                            color: "white",
-                        },
-                        left: "center",
-                    },
                     tooltip: {
                         trigger: "axis",
                     },
@@ -61,6 +54,35 @@ function setVehicleType() {
                             encode: {
                                 x: "way",
                                 y: "data",
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0,
+                                        0,
+                                        0,
+                                        1,
+                                        [
+                                            {
+                                                offset: 0,
+                                                color: "#FF9A22", // 0% 处的颜色
+                                            },
+                                            {
+                                                offset: 1,
+                                                color: "#FFD56E", // 100% 处的颜色
+                                            },
+                                        ],
+                                        false
+                                    ),
+                                    barBorderRadius: [30, 30, 0, 0],
+                                },
+                            },
+                            label: {
+                                show: true,
+                                fontSize: 12,
+                                fontWeight: "bold",
+                                position: "top",
+                                color: "turquoise",
                             },
                         },
                     ],

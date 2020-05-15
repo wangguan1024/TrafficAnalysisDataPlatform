@@ -7,11 +7,10 @@ header {
 #title {
     background-image: url("../images/title.png");
     background-size: 100%;
-
     position: relative;
     top: 15%;
     width: 100%;
-    color: #00f6ff;
+    color: deepskyblue;
     text-align: center;
     font-size: 40px;
     cursor: default;
@@ -23,7 +22,7 @@ nav {
     top: 15%;
     width: 100%;
     font-size: 18px;
-    color: aliceblue;
+    color: snow;
 }
 
 .navLeftDiv {

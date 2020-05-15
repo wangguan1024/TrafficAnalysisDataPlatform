@@ -36,5 +36,6 @@ function setHomePageBtn() {
     let homePage = document.getElementById("homePage");
     homePage.addEventListener("click", function () {
         window.location.href = "./index.html";
+        console.log("home");
     });
 }

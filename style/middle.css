@@ -1,34 +1,41 @@
 #middleLine {
     width: 52%;
     height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
 }
 .middleLineDiv {
     position: relative;
-    width: calc(100%-80px);
-    margin-left: 40px;
-    margin-right: 40px;
-    border: aliceblue solid 1px;
+    height: 92%;
+    width: 84%;
+    margin-left: 8%;
+    margin-right: 8%;
+    border: snow solid 1px;
 }
 #mainMapAndTitle {
-    margin-bottom: 20px;
-    height: 440px;
+    height: 100%;
 }
 
-#mainMapTitle p {
-    position: relative;
+#mainMapTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-5%);
+    width: 100%;
     text-align: center;
-    color: white;
-    padding-bottom: 3px;
+}
+#mainMapTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
     font-size: large;
     font-weight: bold;
 }
-#mainMapSelect {
+
+#mainMapSelectBtn {
     position: absolute;
     z-index: 2;
     right: calc(1.5%);
-    top: calc(2%);
-}
-#mainMapSelectBtn {
+    top: calc(1%);
     color: white;
     background-color: #0b122e;
     border: 1px solid darkgray;
@@ -36,13 +43,45 @@
 }
 
 #mainMapDiv {
+    z-index: 1;
     position: relative;
     width: calc(100%);
     height: calc(100%);
 }
 
-#messageFlowDiv {
+#messageFlowAndCloseBtn {
+    display: none;
     position: relative;
     width: calc(100%);
-    height: 170px;
+    height: calc(0%);
+    border-top: 1px solid white;
+}
+
+#messageFlowTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-11%);
+    width: 100%;
+    text-align: center;
+}
+
+#messageFlowTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: large;
+    font-weight: bold;
+}
+
+#closeMessageFlowDivBtn {
+    position: absolute;
+    z-index: 2;
+    right: calc(2%);
+    top: calc(1%);
+    cursor: pointer;
+    color: white;
+}
+
+#messageFlowDiv {
+    width: calc(100%);
+    height: calc(100%);
 }

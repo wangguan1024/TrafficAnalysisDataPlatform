@@ -2,15 +2,19 @@ setTrimNum();
 
 function setTrimNum() {
     let stateSelectButton = document.getElementById("stateSelectButton");
+    let tripNumTitle = document.getElementById("tripNumTitle");
     let tripNumDivByTime = document.getElementById("tripNumDivByTime");
     let tripNumDivBySpace = document.getElementById("tripNumDivBySpace");
+
     stateSelectButton.addEventListener("click", function () {
         if (stateSelectButton.innerText === "切换为区域分布") {
+            tripNumTitle.innerText = "各区域人口出行量分析";
             stateSelectButton.innerText = "切换为时间分布";
             tripNumDivByTime.style.display = "none";
             tripNumDivBySpace.style.display = "block";
             setChartBySpace();
         } else {
+            tripNumTitle.innerText = "各时间人口出行量分析";
             stateSelectButton.innerText = "切换为区域分布";
             tripNumDivBySpace.style.display = "none";
             tripNumDivByTime.style.display = "block";
@@ -19,7 +23,6 @@ function setTrimNum() {
     });
 
     setChartByTime();
-    console.log("hello");
     // setChartBySpace();
 
     function setChartByTime() {
@@ -32,13 +35,6 @@ function setTrimNum() {
                     document.getElementById("tripNumDivByTime")
                 );
                 tripNum.setOption({
-                    title: {
-                        text: "各时间段人口出行量分析",
-                        textStyle: {
-                            color: "white",
-                        },
-                        left: "center",
-                    },
                     tooltip: {
                         trigger: "axis",
                     },
@@ -70,6 +66,11 @@ function setTrimNum() {
                     dataset: {
                         source: data,
                     },
+                    dataZoom: [
+                        {
+                            type: "inside",
+                        },
+                    ],
                     series: {
                         type: "line",
                         encode: {
@@ -88,25 +89,24 @@ function setTrimNum() {
     }
 
     function setChartBySpace() {
-        function getCoord(areaName) {
-            let lnglatList = [];
-            geoCoordMap.forEach(function (item) {
-                if (item.name === areaName) {
-                    lnglatList.push(item.lng);
-                    lnglatList.push(item.lat);
-                }
-            });
-            return lnglatList;
-        }
         function makeMapData(rawData) {
-            let mapData = [];
+            let reData = [];
             for (let i = 0; i < rawData.length; i++) {
-                mapData.push({
-                    name: rawData[i].area,
-                    value: getCoord(rawData[i].area).concat([rawData[i].data]),
-                });
+                const oneRawData = rawData[i];
+                for (let j = 0; j < geoCoordMap.length; j++) {
+                    const dictObj = geoCoordMap[j];
+                    if (dictObj.name === oneRawData.area) {
+                        reData.push(oneRawData);
+                        break;
+                    }
+                }
             }
-            return mapData;
+            //数据从高到低排序
+            reData.sort(function (a, b) {
+                return b.data - a.data;
+            });
+            console.log(reData);
+            return reData;
         }
 
         fetch("http://122.51.19.160:8080/getTravelAreaVolumes")
@@ -114,89 +114,87 @@ function setTrimNum() {
                 return response.json();
             })
             .then((data) => {
-                // console.log(data);
                 let tripNum = echarts.init(
                     document.getElementById("tripNumDivBySpace")
                 );
                 reData = makeMapData(data);
                 tripNum.setOption({
-                    title: {
-                        text: "各区域人口出行量分析",
-                        textStyle: {
-                            color: "white",
-                        },
-                        left: "center",
-                        z: 200,
-                    },
                     tooltip: {
-                        trigger: "item",
+                        trigger: "axis",
                     },
+                    xAxis: {
+                        type: "category",
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "#fff",
+                                fontSize: "12",
+                            },
+                        },
+                    },
+                    yAxis: {
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "#fff",
+                                fontSize: "12",
+                            },
+                        },
+                    },
+                    dataZoom: [
+                        {
+                            type: "inside",
+                        },
+                    ],
 
-                    geo: {
-                        map: "ShenYang",
-                        itemStyle: {
-                            borderWidth: 0.2,
-                            borderColor: "#404a59",
-                            areaColor: "rgba(24,99,150,0.05)",
-                        },
-                        label: {
-                            normal: {
-                                show: false,
-                                textStyle: {
-                                    color: "#b7b6c9",
-                                },
+                    dataset: {
+                        source: reData,
+                    },
+                    series: [
+                        {
+                            type: "pictorialBar",
+                            barCategoryGap: "0%",
+                            encode: {
+                                x: "area",
+                                y: "data",
                             },
-                            emphasis: {
-                                // 对应的鼠标悬浮效果
+                            symbol:
+                                "path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z",
+                            label: {
                                 show: true,
-                                textStyle: {
-                                    color: "#b7b6c9",
+                                position: "top",
+                                distance: 15,
+                                color: "aquamarine",
+                                fontSize: 12,
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: {
+                                        type: "linear",
+                                        x: 0,
+                                        y: 0,
+                                        x2: 0,
+                                        y2: 1,
+                                        colorStops: [
+                                            {
+                                                offset: 0,
+                                                color: "orangered", //  顶部颜色
+                                            },
+                                            {
+                                                offset: 1,
+                                                color: "salmon", //  底部颜色
+                                            },
+                                        ],
+                                        global: false, //  缺省为  false
+                                    },
+                                },
+                                emphasis: {
+                                    opacity: 1,
                                 },
                             },
+                            z: 10,
                         },
-                        roam: true,
-                        zoom: 1.25,
-                        itemStyle: {
-                            normal: {
-                                label: {
-                                    show: true,
-                                    color: "#fff",
-                                    fontSize: 10,
-                                },
-                                areaColor: "rgba(24,99,150,0.05)",
-                                borderColor: "#407f96",
-                                shadowColor: "#186396",
-                                shadowBlur: 10,
-                            },
-                            emphasis: {
-                                label: {
-                                    show: false,
-                                    color: "#fff",
-                                    shadowColor: "#25zde6",
-                                    shadowBlur: 10,
-                                },
-                                areaColor: "rgba(24,99,150,0.5)",
-                            },
-                        },
-                    },
-                    series: {
-                        type: "scatter",
-                        coordinateSystem: "geo",
-                        data: reData,
-                        label: {
-                            formatter: "{b}",
-                            position: "right",
-                            show: false,
-                        },
-                        tooltip: {
-                            formatter: function (params, ticket, callback) {
-                                let name = params.name;
-                                let value = params.value;
-                                return name + "<br/>数量：" + value[2];
-                            },
-                        },
-                        symbolSize: 10,
-                    },
+                    ],
                 });
                 window.addEventListener("resize", function () {
                     tripNum.resize();
