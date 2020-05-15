@@ -195,6 +195,9 @@ function setMigrationMap() {
                 },
                 geo: {
                     map: "ShenYang",
+                    center: [123.43, 41.8],
+                    zoom: 5,
+                    roam: true,
                     label: {
                         normal: {
                             show: false,
@@ -210,7 +213,7 @@ function setMigrationMap() {
                             },
                         },
                     },
-                    roam: true,
+
                     itemStyle: {
                         borderColor: "rgba(147, 235, 248, 1)",
                         borderWidth: 0.3,

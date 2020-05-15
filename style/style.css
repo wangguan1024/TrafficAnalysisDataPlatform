@@ -8,7 +8,9 @@ html {
 
 body {
     height: 100%;
-    background-color: #0b122e;
+    /* background-color: #0b122e; */
+    background: url(../images/true.png);
+    background-size: cover;
     position: relative;
 }
 .amap-logo {

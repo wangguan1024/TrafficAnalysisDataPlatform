@@ -44,9 +44,9 @@ function setMainMap() {
                 //轮廓线透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
                 strokeOpacity: 0.6,
                 //多边形填充颜色，使用16进制颜色代码赋值，如：#FFAA00
-                fillColor: "#0B122E",
+                fillColor: "#0C1F34",
                 //多边形填充透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
-                fillOpacity: 0.2,
+                fillOpacity: 0.5,
                 //轮廓线样式，实线:solid，虚线:dashed
                 strokeStyle: "solid",
                 strokeDasharray: [10, 2, 10],
@@ -80,7 +80,7 @@ function setMainMap() {
             //轮廓线透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
             strokeOpacity: 0.9,
             //多边形填充颜色，使用16进制颜色代码赋值，如：#FFAA00
-            fillColor: "#0B122E",
+            fillColor: "#0C1F34",
             //多边形填充透明度，取值范围[0,1]，0表示完全透明，1表示不透明。默认为0.9
             fillOpacity: 1,
             //轮廓线样式，实线:solid，虚线:dashed
@@ -245,7 +245,7 @@ function setMainMap() {
         }
     });
 
-    // getRegionStayNumData();
+    getRegionStayNumData();
     //websocket获取热力图数据，并渲染进入热力图
     function getRegionStayNumData() {
         let host = "http://122.51.19.160:8080";

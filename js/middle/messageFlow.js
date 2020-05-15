@@ -39,7 +39,7 @@ function setMessageFlow() {
         }
     }
     //生产环境
-    // getMessageFlowData();
+    getMessageFlowData();
     function getMessageFlowData() {
         let click = 0;
         let lastDataObj = { name: "" };
