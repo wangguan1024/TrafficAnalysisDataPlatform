@@ -39,7 +39,7 @@ function setMessageFlow() {
         }
     }
     //生产环境
-    getMessageFlowData();
+    // getMessageFlowData();
     function getMessageFlowData() {
         let click = 0;
         let lastDataObj = { name: "" };
@@ -48,6 +48,18 @@ function setMessageFlow() {
         let StompClient = Stomp.over(Socket);
         StompClient.connect({}, function () {
             StompClient.subscribe("/user/place/hotplace", function (res) {
+                //显示主图下方窗口 调整主图大小
+                let mainMapAndTitle = document.getElementById(
+                    "mainMapAndTitle"
+                );
+                let messageFlowAndCloseBtn = document.getElementById(
+                    "messageFlowAndCloseBtn"
+                );
+                messageFlowAndCloseBtn.style.display = "block";
+                messageFlowAndCloseBtn.style.height = "30%";
+                mainMapAndTitle.style.height = "70%";
+                //js动态改变了父容器div宽高，手动刷新图表使其适应容器
+                messageFlow.resize();
                 // console.log(data);
                 let newDataObj = JSON.parse(res.body);
                 //检测地名是否变化
@@ -78,7 +90,7 @@ function setMessageFlow() {
                     //初始化or重新设置预警线
                     messageFlow.setOption({
                         grid: {
-                            top: "10%",
+                            top: "20%",
                             left: "10%",
                             right: "10%",
                             bottom: "12%",
@@ -149,3 +161,34 @@ function setMessageFlow() {
         messageFlow.resize();
     });
 }
+
+function setMessageFlowCloseBtn() {
+    let closeMessageFlowDivBtn = document.getElementById(
+        "closeMessageFlowDivBtn"
+    );
+    let mainMapAndTitle = document.getElementById("mainMapAndTitle");
+    let messageFlowAndCloseBtn = document.getElementById(
+        "messageFlowAndCloseBtn"
+    );
+
+    closeMessageFlowDivBtn.addEventListener("click", function () {
+        messageFlowAndCloseBtn.style.display = "none";
+        messageFlowAndCloseBtn.style.height = "0%";
+        mainMapAndTitle.style.height = "100%";
+        //发送空数据使得websocket停止发送
+        let oriData = {
+            places: [],
+        };
+        fetch("http://122.51.19.160:8080/putPlaces", {
+            method: "POST", // or 'PUT'
+            body: JSON.stringify(oriData), // data can be `string` or {object}!
+            headers: new Headers({
+                "Content-Type": "application/json",
+            }),
+        }).catch((err) => {
+            console.log(err);
+        });
+    });
+}
+
+setMessageFlowCloseBtn();

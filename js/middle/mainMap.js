@@ -165,41 +165,55 @@ function setMainMap() {
         let element = keyPointDict[i];
         let name = element.name;
         let center = new AMap.LngLat(element.lng, element.lat);
-        let circle = new AMap.Circle({
-            map: map,
-            center: center,
-            radius: 500,
-            strokeColor: "white",
-            strokeWeight: 0.1,
-            strokeOpacity: 0.5,
-            fillColor: "yellow",
-            fillOpacity: 0.2,
-            zIndex: 11,
-            cursor: "pointer",
-        });
-        let obj = { name: name, circle: circle };
-        keyPointObjList.push(obj);
-        //给每个circle设置click事件
-        circle.on("click", function (e) {
-            //设置消息弹窗
-            new AMap.InfoWindow({
-                content: element.name,
-            }).open(map, e.lnglat);
-            //将选择区域数据发送到服务端
-            let oriData = { places: [name] };
-            console.log(JSON.stringify(oriData));
-            fetch("http://122.51.19.160:8080/putPlaces", {
-                method: "POST", // or 'PUT'
-                body: JSON.stringify(oriData), // data can be `string` or {object}!
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                }),
-            }).catch((err) => {
-                console.log(err);
+        AMapUI.loadUI(["overlay/SvgMarker"], function (SvgMarker) {
+            if (!SvgMarker.supportSvg) {
+                //当前环境并不支持SVG，此时SvgMarker会回退到父类，即SimpleMarker
+            }
+
+            //创建一个shape实例，比如水滴状
+            let shape = new SvgMarker.Shape.TriangleFlagPin({
+                height: 20, //高度
+                //width: **, //不指定时会维持默认的宽高比
+                fillColor: "yellow", //填充色
+                strokeWidth: 1, //描边宽度
+                strokeColor: "#666", //描边颜色
             });
+
+            //利用该shape构建SvgMarker
+            let marker = new SvgMarker(
+                //第一个参数传入shape实例
+                shape,
+                //第二个参数为SimpleMarker的构造参数（iconStyle除外）
+                {
+                    showPositionPoint: true, //显示定位点
+                    map: map,
+                    position: center,
+                }
+            );
+            let obj = { name: name, marker: marker };
+
+            keyPointObjList.push(obj);
+            marker.on("click", function (e) {
+                //设置消息弹窗
+                new AMap.InfoWindow({
+                    content: name,
+                }).open(map, e.lnglat);
+                //将选择区域数据发送到服务端
+                let oriData = {
+                    places: [name],
+                };
+                fetch("http://122.51.19.160:8080/putPlaces", {
+                    method: "POST", // or 'PUT'
+                    body: JSON.stringify(oriData), // data can be `string` or {object}!
+                    headers: new Headers({
+                        "Content-Type": "application/json",
+                    }),
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+            marker.hide();
         });
-        //将所有circle隐藏
-        circle.hide();
     }
     //获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
     let mainMapConfirmBtn = document.getElementById("mainMapConfirmBtn");
@@ -207,7 +221,7 @@ function setMainMap() {
         //清空上一次的区域
         for (let index = 0; index < keyPointObjList.length; index++) {
             let element = keyPointObjList[index];
-            element.circle.hide();
+            element.marker.hide();
         }
         //获取checkbox选择的重点区域
         let keyPointSelectList = [];
@@ -225,13 +239,13 @@ function setMainMap() {
             let selectKeyPoint = keyPointSelectList[index];
             for (let j = 0; j < keyPointObjList.length; j++) {
                 if (selectKeyPoint === keyPointObjList[j].name) {
-                    keyPointObjList[j].circle.show();
+                    keyPointObjList[j].marker.show();
                 }
             }
         }
     });
 
-    getRegionStayNumData();
+    // getRegionStayNumData();
     //websocket获取热力图数据，并渲染进入热力图
     function getRegionStayNumData() {
         let host = "http://122.51.19.160:8080";
