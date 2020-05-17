@@ -25,24 +25,26 @@
     <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
 
-    <link rel="stylesheet" href="./style/alert.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/header.css">
-    <link rel="stylesheet" href="./style/foot.css">
-    <link rel="stylesheet" href="./style/lib/horn.css">
-    <link rel="stylesheet" href="./style/lib/quit_btn.css">
-    <link rel="stylesheet" href="./style/middle.css">
-    <link rel="stylesheet" href="./style/left.css">
-    <link rel="stylesheet" href="./style/right.css">
+
+    <link rel="stylesheet" href="./style/mainPage/main.css">
+    <link rel="stylesheet" href="./style/mainPage/alert.css">
+    <link rel="stylesheet" href="./style/mainPage/lib/horn.css">
+    <link rel="stylesheet" href="./style/mainPage/lib/quit_btn.css">
+    <link rel="stylesheet" href="./style/mainPage/left.css">
+    <link rel="stylesheet" href="./style/mainPage/middle.css">
+    <link rel="stylesheet" href="./style/mainPage/right.css">
 
 
     <script src="./js/header/header.js" async></script>
-    <script src="./js/middle/mainMap.js" async></script>
-    <script src="./js/middle/messageFlow.js" async></script>
-    <script src="./js/left/tripNum.js" async></script>
-    <script src="./js/left/migrationMap.js" async></script>
-    <script src="./js/right/regionStayNum.js" async></script>
-    <script src="./js/right/vehicleType.js" async></script>
+    <script src="./js/mainPage/middle/mainMap.js" async></script>
+    <script src="./js/mainPage/middle/messageFlow.js" async></script>
+    <script src="./js/mainPage/left/tripNum.js" async></script>
+    <script src="./js/mainPage/left/migrationMap.js" async></script>
+    <script src="./js/mainPage/right/regionStayNum.js" async></script>
+    <script src="./js/mainPage/right/vehicleType.js" async></script>
+    <script src="./js/mainPage/hideMenu/hideMenu.js" async></script>
 </head>
 
 <body>
@@ -58,10 +60,10 @@
                 <span class="navLeftSpan" id="homePage">
                     <span class="glyphicon glyphicon-home"></span> 主页面
                 </span>
-                <span class="navLeftSpan">
+                <span class="navLeftSpan" id="monitor">
                     <span class="glyphicon glyphicon-facetime-video"></span> 热点监控
                 </span>
-                <span class="navLeftSpan">
+                <span class="navLeftSpan" id="report">
                     <span class="glyphicon glyphicon-download-alt"></span> 报表下载
                 </span>
             </div>
@@ -113,6 +115,8 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+
+
         <section id="leftLine">
             <!-- 左侧第一个图 -->
             <!-- 各时间段出行量 -->
@@ -168,6 +172,9 @@
                 <div id="messageFlowAndCloseBtn">
                     <div id="messageFlowTitleDiv">
                         <span>热点地区实时监测</span>
+                    </div>
+                    <div id="messageFlowAreaNameDiv">
+                        <span id="messageFlowAreaName"></span>
                     </div>
                     <span class="glyphicon glyphicon-remove" id="closeMessageFlowDivBtn"></span>
                     <div id="messageFlowDiv"></div>
@@ -226,13 +233,6 @@
             </div>
         </section>
     </main>
-    <script>
-        $(function () {
-            $("#mainMapSelectBtn").click(function () {
-                $("#mymodal").modal();
-            });
-        });
-    </script>
 </body>
 
 </html>

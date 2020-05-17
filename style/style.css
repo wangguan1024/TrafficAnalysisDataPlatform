@@ -9,23 +9,7 @@ html {
 body {
     height: 100%;
     /* background-color: #0b122e; */
-    background: url(../images/true.png);
+    background: url("../images/background.png");
     background-size: cover;
     position: relative;
-}
-.amap-logo {
-    display: none;
-    opacity: 0;
-}
-
-.amap-copyright {
-    opacity: 0;
-}
-
-#main {
-    height: 90%;
-    position: relative;
-    margin-left: 20px;
-    margin-right: 20px;
-    display: flex;
 }

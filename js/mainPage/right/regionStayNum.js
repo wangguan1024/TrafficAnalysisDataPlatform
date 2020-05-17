@@ -27,8 +27,7 @@ function setRegionStayNum() {
             },
         },
         itemStyle: {
-            // 设置扇形的颜色：红色系
-            color: "navy",
+            color: "dodgerblue",
             shadowBlur: 200,
             shadowColor: "rgba(0, 0, 0, 0.5)",
         },

@@ -45,6 +45,11 @@ nav {
     cursor: pointer;
 }
 
+.navLeftSpan:hover,
+.navRightSpan:hover {
+    color: lightslategray;
+}
+
 #timeClock {
     cursor: default;
 }

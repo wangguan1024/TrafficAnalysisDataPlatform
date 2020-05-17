@@ -1,0 +1,64 @@
+#rightLine {
+    position: relative;
+    width: 24%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.right_div {
+    height: 42%;
+    border: snow solid 1px;
+    position: relative;
+}
+
+#regionStayNumTitleDiv,
+#vehicleTypeTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-10%);
+    width: 100%;
+    text-align: center;
+}
+
+#regionStayNumTitleDiv span,
+#vehicleTypeTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: large;
+    font-weight: bold;
+}
+
+#regionStayNumDiv {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+}
+
+#areaSelectDiv {
+    position: absolute;
+    text-align: center;
+    top: calc(3%);
+    right: calc(3%);
+    z-index: 2;
+}
+
+#areaSelectDiv span {
+    color: white;
+}
+
+#areaSelectDiv select {
+    position: relative;
+    color: white;
+    background-color: #0b122e;
+    display: inline;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+}
+
+#vehicleTypeDiv {
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+}

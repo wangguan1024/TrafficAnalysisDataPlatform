@@ -39,7 +39,7 @@ function setMessageFlow() {
         }
     }
     //生产环境
-    getMessageFlowData();
+    // getMessageFlowData();
     function getMessageFlowData() {
         let click = 0;
         let lastDataObj = { name: "" };
@@ -48,6 +48,8 @@ function setMessageFlow() {
         let StompClient = Stomp.over(Socket);
         StompClient.connect({}, function () {
             StompClient.subscribe("/user/place/hotplace", function (res) {
+                // console.log(data);
+                let newDataObj = JSON.parse(res.body);
                 //显示主图下方窗口 调整主图大小
                 let mainMapAndTitle = document.getElementById(
                     "mainMapAndTitle"
@@ -55,13 +57,16 @@ function setMessageFlow() {
                 let messageFlowAndCloseBtn = document.getElementById(
                     "messageFlowAndCloseBtn"
                 );
+                let messageFlowAreaName = document.getElementById(
+                    "messageFlowAreaName"
+                );
+                messageFlowAreaName.innerHTML = newDataObj.name;
                 messageFlowAndCloseBtn.style.display = "block";
                 messageFlowAndCloseBtn.style.height = "30%";
                 mainMapAndTitle.style.height = "70%";
                 //js动态改变了父容器div宽高，手动刷新图表使其适应容器
                 messageFlow.resize();
-                // console.log(data);
-                let newDataObj = JSON.parse(res.body);
+
                 //检测地名是否变化
                 if (newDataObj.name === lastDataObj.name) {
                     click++;

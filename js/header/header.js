@@ -18,7 +18,6 @@ function startTime() {
         hour + ":" + minute + ":" + second;
     setTimeout("startTime()", 500);
 }
-
 startTime();
 
 //设置关闭按钮
@@ -31,11 +30,28 @@ function setClosePageBtn() {
 setClosePageBtn();
 
 //设置主页按钮
-
 function setHomePageBtn() {
     let homePage = document.getElementById("homePage");
     homePage.addEventListener("click", function () {
         window.location.href = "./index.html";
-        console.log("home");
     });
 }
+setHomePageBtn();
+
+//设置监控按钮
+function setMonitorPage() {
+    let monitor = document.getElementById("monitor");
+    monitor.addEventListener("click", function () {
+        window.location.href = "./monitor.html";
+    });
+}
+setMonitorPage();
+
+//设置报表按钮
+function setReportPage() {
+    let report = document.getElementById("report");
+    report.addEventListener("click", function () {
+        window.location.href = "./report.html";
+    });
+}
+setReportPage();
