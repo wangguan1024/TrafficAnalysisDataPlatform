@@ -174,7 +174,7 @@ function setMainMap() {
             let shape = new SvgMarker.Shape.TriangleFlagPin({
                 height: 20, //高度
                 //width: **, //不指定时会维持默认的宽高比
-                fillColor: "yellow", //填充色
+                fillColor: "green", //填充色
                 strokeWidth: 1, //描边宽度
                 strokeColor: "#666", //描边颜色
             });
@@ -215,7 +215,9 @@ function setMainMap() {
             marker.hide();
         });
     }
-    //获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
+    //checkbox已经选择的区域
+    let keyPointSelectList = [];
+    //点击确定按钮，获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
     let mainMapConfirmBtn = document.getElementById("mainMapConfirmBtn");
     mainMapConfirmBtn.addEventListener("click", function () {
         //清空上一次的区域
@@ -223,8 +225,8 @@ function setMainMap() {
             let element = keyPointObjList[index];
             element.marker.hide();
         }
+        keyPointSelectList = [];
         //获取checkbox选择的重点区域
-        let keyPointSelectList = [];
         let myCheckBoxTable = document.getElementById("myCheckBoxTable");
         for (let i = 0; i < myCheckBoxTable.rows.length; i++) {
             for (let j = 0; j < myCheckBoxTable.rows[i].cells.length; j++) {
@@ -244,8 +246,22 @@ function setMainMap() {
             }
         }
     });
+    //点击取消按钮，恢复原表格数据
+    let mainMapRegretBtn = document.getElementById("mainMapRegretBtn");
+    mainMapRegretBtn.addEventListener("click", function () {
+        let myCheckBoxTable = document.getElementById("myCheckBoxTable");
+        for (let i = 0; i < myCheckBoxTable.rows.length; i++) {
+            for (let j = 0; j < myCheckBoxTable.rows[i].cells.length; j++) {
+                let element = myCheckBoxTable.rows[i].cells[j].children[0];
+                if (element.checked) {
+                    if (keyPointSelectList.indexOf(element.name) === -1) {
+                        element.checked = false;
+                    }
+                }
+            }
+        }
+    });
 
-    getRegionStayNumData();
     //websocket获取热力图数据，并渲染进入热力图
     function getRegionStayNumData() {
         let host = "http://122.51.19.160:8080";
@@ -267,4 +283,7 @@ function setMainMap() {
             });
         });
     }
+    getRegionStayNumData();
+
+    //websocket监测热点地区数据，并对人群密度过大地区发出警告
 }

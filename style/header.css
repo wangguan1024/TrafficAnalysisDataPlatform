@@ -12,7 +12,7 @@ header {
     width: 100%;
     color: deepskyblue;
     text-align: center;
-    font-size: 40px;
+    font-size: 2.7rem;
     cursor: default;
 }
 
@@ -21,7 +21,7 @@ nav {
     z-index: 2;
     top: 45%;
     width: 100%;
-    font-size: 20px;
+    font-size: 1.4rem;
     color: snow;
 }
 

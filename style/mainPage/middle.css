@@ -27,7 +27,7 @@
 #mainMapTitleDiv span {
     display: inline-block;
     color: lightskyblue;
-    font-size: large;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
@@ -68,7 +68,7 @@
 #messageFlowTitleDiv span {
     display: inline-block;
     color: lightskyblue;
-    font-size: large;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 #messageFlowAreaNameDiv {
@@ -82,7 +82,7 @@
 #messageFlowAreaNameDiv span {
     display: inline-block;
     color: lightskyblue;
-    font-size: medium;
+    font-size: 1.1rem;
     font-weight: bold;
 }
 

@@ -26,7 +26,7 @@
 #vehicleTypeTitleDiv span {
     display: inline-block;
     color: lightskyblue;
-    font-size: large;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
@@ -42,6 +42,7 @@
     top: calc(3%);
     right: calc(3%);
     z-index: 2;
+    font-size: 1rem;
 }
 
 #areaSelectDiv span {
