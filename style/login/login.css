@@ -3,11 +3,9 @@
     padding: 0px;
 }
 
-body {
-    background: url("../../images/login/login.jpg");
-    background-size: cover;
-    position: relative;
-    font-size: 16px;
+html {
+    height: 100%;
+    font-size: 1vw;
 }
 
 header {
@@ -19,7 +17,13 @@ header {
     background-size: 100%;
     text-align: center;
     color: deepskyblue;
-    font-size: 40px;
+    font-size: 2.7rem;
+}
+
+body {
+    background: url("../../images/login/login.jpg");
+    background-size: cover;
+    position: relative;
 }
 
 main {
