@@ -43,122 +43,190 @@ function setMessageFlow() {
     function getMessageFlowData() {
         let click = 0;
         let lastDataObj = { name: "" };
+        let overFlowNameList = [];
         let host = "http://122.51.19.160:8080";
         let Socket = new SockJS(host + "/hhuc");
         let StompClient = Stomp.over(Socket);
         StompClient.connect({}, function () {
             StompClient.subscribe("/user/place/hotplace", function (res) {
-                // console.log(data);
                 let newDataObj = JSON.parse(res.body);
-                //显示主图下方窗口 调整主图大小
-                let mainMapAndTitle = document.getElementById(
-                    "mainMapAndTitle"
-                );
-                let messageFlowAndCloseBtn = document.getElementById(
-                    "messageFlowAndCloseBtn"
-                );
-                let messageFlowAreaName = document.getElementById(
-                    "messageFlowAreaName"
-                );
-                messageFlowAreaName.innerHTML = newDataObj.name;
-                messageFlowAndCloseBtn.style.display = "block";
-                messageFlowAndCloseBtn.style.height = "30%";
-                mainMapAndTitle.style.height = "70%";
-                //js动态改变了父容器div宽高，手动刷新图表使其适应容器
-                messageFlow.resize();
 
-                //检测地名是否变化
-                if (newDataObj.name === lastDataObj.name) {
-                    click++;
-                    //先充入七个数据
-                    if (click < 7) {
-                        addData(false, newDataObj.nowNum);
-                    } else {
-                        addData(true, newDataObj.nowNum);
-                    }
-                    messageFlow.setOption({
-                        xAxis: {
-                            data: date,
-                        },
-                        series: [
-                            {
-                                name: "数量",
-                                data: data,
-                            },
-                        ],
+                //overflow发生，设置主图预警
+                if (newDataObj.overflow === true) {
+                    keyPointObjList.forEach(function (keyPointObj) {
+                        if (keyPointObj.name === newDataObj.name) {
+                            overFlowNameList.push(keyPointObj.name);
+                            keyPointObj.overflow = true;
+                            AMapUI.loadUI(["overlay/SvgMarker"], function (
+                                SvgMarker
+                            ) {
+                                keyPointObj.marker.setSvgShape(
+                                    new SvgMarker.Shape.TriangleFlagPin({
+                                        height: 25, //高度
+                                        //width: **, //不指定时会维持默认的宽高比
+                                        fillColor: "orangered", //填充色
+                                        strokeWidth: 1, //描边宽度
+                                        strokeColor: "#666", //描边颜色
+                                    })
+                                );
+                            });
+                            keyPointObj.marker.show();
+                        }
                     });
-                } else {
-                    click = 0;
-                    date = [];
-                    data = [];
-                    addData(false, newDataObj.nowNum);
-                    //初始化or重新设置预警线
-                    messageFlow.setOption({
-                        grid: {
-                            top: "20%",
-                            left: "10%",
-                            right: "10%",
-                            bottom: "12%",
-                        },
-                        xAxis: {
-                            type: "category",
-                            boundaryGap: false,
-                            data: date,
-                            axisLabel: {
-                                show: true,
-                                textStyle: {
-                                    color: "#fff",
-                                    fontSize: "12",
-                                },
+                }
+                //overflow解除
+                else {
+                    overFlowNameList.forEach(function (overFlowName, index) {
+                        if (overFlowName === newDataObj.name) {
+                            overFlowNameList.splice(index, 1);
+                            keyPointObjList.forEach(function (keyPointObj) {
+                                if (keyPointObj.name === overFlowName) {
+                                    //将红色小旗隐藏
+                                    keyPointObj.overflow = false;
+                                    AMapUI.loadUI(
+                                        ["overlay/SvgMarker"],
+                                        function (SvgMarker) {
+                                            keyPointObj.marker.setSvgShape(
+                                                new SvgMarker.Shape.TriangleFlagPin(
+                                                    {
+                                                        height: 20, //高度
+                                                        //width: **, //不指定时会维持默认的宽高比
+                                                        fillColor:
+                                                            "springgreen", //填充色
+                                                        strokeWidth: 1, //描边宽度
+                                                        strokeColor: "#666", //描边颜色
+                                                    }
+                                                )
+                                            );
+                                        }
+                                    );
+                                    keyPointObj.marker.hide();
+                                    //若某热点区域被用户选择显示，则仍然将黄色小旗显示在主图上
+                                    if (
+                                        keyPointSelectList.indexOf(
+                                            keyPointObj.name
+                                        ) !== -1
+                                    ) {
+                                        keyPointObj.marker.show();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+
+                //设置主图下方窗口
+                if (newDataObj.name === showDataToMessageFlow) {
+                    //显示主图下方窗口 调整主图大小
+                    let mainMapAndTitle = document.getElementById(
+                        "mainMapAndTitle"
+                    );
+                    let messageFlowAndCloseBtn = document.getElementById(
+                        "messageFlowAndCloseBtn"
+                    );
+                    let messageFlowAreaName = document.getElementById(
+                        "messageFlowAreaName"
+                    );
+                    messageFlowAreaName.innerHTML = newDataObj.name;
+                    messageFlowAndCloseBtn.style.display = "block";
+                    messageFlowAndCloseBtn.style.height = "30%";
+                    mainMapAndTitle.style.height = "70%";
+                    //js动态改变了父容器div宽高，手动刷新图表使其适应容器
+                    messageFlow.resize();
+
+                    //检测地名是否变化
+                    if (newDataObj.name === lastDataObj.name) {
+                        click++;
+                        //先充入七个数据
+                        if (click < 7) {
+                            addData(false, newDataObj.nowNum);
+                        } else {
+                            addData(true, newDataObj.nowNum);
+                        }
+                        messageFlow.setOption({
+                            xAxis: {
+                                data: date,
                             },
-                        },
-                        yAxis: {
-                            // boundaryGap: [0, "50%"],
-                            type: "value",
-                            axisLabel: {
-                                show: true,
-                                textStyle: {
-                                    color: "#fff",
-                                    fontSize: "12",
+                            series: [
+                                {
+                                    name: "数量",
+                                    data: data,
                                 },
+                            ],
+                        });
+                    } else {
+                        click = 0;
+                        date = [];
+                        data = [];
+                        addData(false, newDataObj.nowNum);
+                        //初始化or重新设置预警线
+                        messageFlow.setOption({
+                            grid: {
+                                top: "20%",
+                                left: "10%",
+                                right: "10%",
+                                bottom: "12%",
                             },
-                        },
-                        tooltip: {
-                            trigger: "axis",
-                        },
-                        series: [
-                            {
-                                name: "数量",
-                                type: "line",
-                                symbolSize: 8, //拐点圆的大小
-                                smooth: false,
-                                //symbol: 'none',
-                                stack: "zzz",
-                                data: data,
-                                markLine: {
-                                    data: [
-                                        {
-                                            name: "fsdf",
-                                            yAxis: newDataObj.maxnum,
-                                        },
-                                    ],
-                                },
-                                itemStyle: {
-                                    normal: {
-                                        color: "red",
-                                        lineStyle: {
-                                            color: "#2B908F",
-                                        },
-                                        label: {
-                                            //show:true
-                                        },
+                            xAxis: {
+                                type: "category",
+                                boundaryGap: false,
+                                data: date,
+                                axisLabel: {
+                                    show: true,
+                                    textStyle: {
+                                        color: "#fff",
+                                        fontSize: "12",
                                     },
                                 },
                             },
-                        ],
-                    });
+                            yAxis: {
+                                // boundaryGap: [0, "50%"],
+                                type: "value",
+                                axisLabel: {
+                                    show: true,
+                                    textStyle: {
+                                        color: "#fff",
+                                        fontSize: "12",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                trigger: "axis",
+                            },
+                            series: [
+                                {
+                                    name: "数量",
+                                    type: "line",
+                                    symbolSize: 8, //拐点圆的大小
+                                    smooth: false,
+                                    //symbol: 'none',
+                                    stack: "zzz",
+                                    data: data,
+                                    markLine: {
+                                        data: [
+                                            {
+                                                name: "fsdf",
+                                                yAxis: newDataObj.maxnum,
+                                            },
+                                        ],
+                                    },
+                                    itemStyle: {
+                                        normal: {
+                                            color: "red",
+                                            lineStyle: {
+                                                color: "#2B908F",
+                                            },
+                                            label: {
+                                                //show:true
+                                            },
+                                        },
+                                    },
+                                },
+                            ],
+                        });
+                    }
+                    lastDataObj = newDataObj;
                 }
-                lastDataObj = newDataObj;
             });
         });
     }
@@ -180,19 +248,7 @@ function setMessageFlowCloseBtn() {
         messageFlowAndCloseBtn.style.display = "none";
         messageFlowAndCloseBtn.style.height = "0%";
         mainMapAndTitle.style.height = "100%";
-        //发送空数据使得websocket停止发送
-        let oriData = {
-            places: [],
-        };
-        fetch("http://122.51.19.160:8080/putPlaces", {
-            method: "POST", // or 'PUT'
-            body: JSON.stringify(oriData), // data can be `string` or {object}!
-            headers: new Headers({
-                "Content-Type": "application/json",
-            }),
-        }).catch((err) => {
-            console.log(err);
-        });
+        showDataToMessageFlow = "";
     });
 }
 
