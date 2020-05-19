@@ -13,28 +13,19 @@
 
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/header.css">
+    <link rel="stylesheet" href="./style/reportAndMonitor/buttonsReport.css">
+    <link rel="stylesheet" href="./style/reportAndMonitor/report.css">
+
     <script src="./js/header/header.js" async></script>
-
-    <!-- <link rel="stylesheet" href="./style/reportAndMonitor/base.css"> -->
-    <link rel="stylesheet" href="./style/reportAndMonitor/buttons.css">
-    <!-- <link rel="stylesheet" href="./style/reportAndMonitor/tail.css"> -->
-
-
-
     <script src="./js/Report/report.js" async></script>
-
 
 </head>
 
 <body>
-    <!--顶部-->
     <header>
-
         <div id="title">
             沈阳交通大数据分析平台
         </div>
-
-
         <nav>
             <div class="navLeftDiv">
                 <span class="navLeftSpan" id="homePage">
@@ -59,91 +50,37 @@
         </nav>
     </header>
 
-    <section class="sm_section left">
-        <form>
-            <fieldset class="message_fieldset">
-                <legend>报表1</legend>
-                <!--<button class="button button&#45;&#45;ujarak button&#45;&#45;border-medium button&#45;&#45;round-s button&#45;&#45;text-thick" type="button">下载PDF</button>-->
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button" id="btnPDF"
-                                onclick="download('http://122.51.19.160:8080/downloadExcel?name=stayinfo')">下载PDF</button>
-                        </td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset class="message_fieldset">
-                <legend>报表2</legend>
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载PDF</button></td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset class="message_fieldset">
-                <legend>报表3</legend>
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载PDF</button></td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset class="message_fieldset">
-                <legend>报表4</legend>
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载PDF</button></td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset class="message_fieldset">
-                <legend>报表5</legend>
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载PDF</button></td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-            <fieldset class="message_fieldset">
-                <legend>报表6</legend>
-                <table class="message_table">
-                    <tr>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载PDF</button></td>
-                        <td><button
-                                class="button button--ujarak button--border-medium button--round-s button--text-thick"
-                                type="button">下载EXCEL</button></td>
-                    </tr>
-                </table>
-            </fieldset>
-        </form>
-    </section>
+    <main>
+
+        <div class="baseDiv">
+            <div class="titleDiv">停留分析报表</div>
+            <div class="buttonDiv">
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button" id="stayInfoPDF">下载PDF</button>
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button" id="stayInfoExcel">下载EXCEL</button>
+            </div>
+        </div>
+        <div class="baseDiv">
+            <div class="titleDiv">出行方式报表</div>
+            <div class="buttonDiv">
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button" id="travelmodelv1PDF">下载PDF</button>
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button" id="travelmodelv1EXCEL">下载EXCEL</button>
+            </div>
+        </div>
+        <div class="baseDiv">
+            <div class="titleDiv">报表3</div>
+            <div class="buttonDiv">
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button">下载PDF</button>
+                <button class="button button--ujarak button--border-medium button--round-s button--text-thick"
+                    type="button">下载EXCEL</button>
+            </div>
+        </div>
+
+    </main>
 
 
 

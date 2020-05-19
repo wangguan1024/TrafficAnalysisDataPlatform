@@ -1,0 +1,48 @@
+main {
+    position: relative;
+    height: 90%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+}
+
+.areaSelectDiv {
+    position: relative;
+    height: 90%;
+    width: 20%;
+    border-right: 1px solid cornsilk;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.titleDiv {
+    text-align: center;
+    color: snow;
+    font-size: 1.2rem;
+}
+
+.buttonDiv {
+    text-align: center;
+    color: cornsilk;
+    font-size: 1.1rem;
+}
+
+.videoDiv {
+    position: relative;
+    width: 78%;
+    height: 90%;
+}
+
+#videoTitle {
+    text-align: center;
+    color: snow;
+    font-size: 1.3rem;
+    height: 4%;
+}
+
+#videoContainer {
+    width: 96%;
+    height: 96%;
+    margin: 0 2%;
+}

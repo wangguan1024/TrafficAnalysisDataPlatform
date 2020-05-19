@@ -1,5 +1,25 @@
-function changeVideo(url){
-    var s='<EMBED style="FILTER: xray()" src="$url$" width=3600px height=300px type=audio/mpeg volume="0" loop="-1">';
+function setVideoPage() {
+    function setVideoTitle(areaName) {
+        let title = document.getElementById("videoTitle");
+        title.innerHTML = "areaName";
+    }
 
-    document.getElementById("video").innerHTML=s.replace('$url$',url);
-};
+    function setVideoFromServer(areaName) {
+        let videoElem = document.getElementById("videoContainer");
+        let videoSrc =
+            "http://122.51.19.160:8080/getvideo?placeName=" + areaName;
+        videoElem.setAttribute("src", "videoSrc");
+    }
+    let areaSelectDiv = document.getElementById("areaSelectDiv");
+    let buttonList = document.getElementsByClassName("button");
+    for (let index = 0; index < buttonList.length; index++) {
+        const buttonDOM = buttonList[index];
+        buttonDOM.addEventListener("click", function (e) {
+            let areaName = e.target.innerHTML;
+            setVideoTitle(areaName);
+            setVideoFromServer(areaName);
+        });
+    }
+}
+
+setVideoPage();
