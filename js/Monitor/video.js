@@ -8,7 +8,7 @@ function setVideoPage() {
         let videoElem = document.getElementById("videoContainer");
         let videoSrc =
             "http://122.51.19.160:8080/getvideo?placeName=" + areaName;
-        videoElem.setAttribute("src", "videoSrc");
+        videoElem.setAttribute("src", videoSrc);
     }
     let areaSelectDiv = document.getElementById("areaSelectDiv");
     let buttonList = document.getElementsByClassName("button");
