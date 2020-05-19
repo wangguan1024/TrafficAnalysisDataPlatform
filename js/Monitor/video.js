@@ -1,7 +1,7 @@
 function setVideoPage() {
     function setVideoTitle(areaName) {
         let title = document.getElementById("videoTitle");
-        title.innerHTML = "areaName";
+        title.innerHTML = areaName;
     }
 
     function setVideoFromServer(areaName) {
