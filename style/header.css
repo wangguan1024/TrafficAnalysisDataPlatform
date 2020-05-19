@@ -19,10 +19,10 @@ header {
 nav {
     position: absolute;
     z-index: 2;
-    top: 45%;
+    top: 28%;
     width: 100%;
     font-size: 1.4rem;
-    color: snow;
+    color: azure;
 }
 
 .navLeftDiv {
@@ -47,7 +47,11 @@ nav {
 
 .navLeftSpan:hover,
 .navRightSpan:hover {
-    color: lightslategray;
+    color: lightskyblue;
+}
+/* 动态添加 */
+.navSpanSelect {
+    color: lightskyblue;
 }
 
 #timeClock {
