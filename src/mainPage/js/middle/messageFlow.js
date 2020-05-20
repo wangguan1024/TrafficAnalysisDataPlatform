@@ -4,6 +4,8 @@ import {
     keyPointSelectList,
 } from "./mainMap.js";
 
+import { checkTime } from "../../../header/header.js";
+
 export function setMessageFlow() {
     let date = [];
     let data = [];
@@ -43,7 +45,7 @@ export function setMessageFlow() {
         }
     }
     //生产环境
-    // getMessageFlowData();
+    getMessageFlowData();
     function getMessageFlowData() {
         let click = 0;
         let lastDataObj = { name: "" };
