@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+    <script src="./login.bundle.js" async></script>
+</head>
+
+<body>
+    <header>沈阳交通大数据分析平台</header>
+    <main>
+        <div id="loginRoot">
+            <div class="signFlowTabs">
+                <span class="signFlowTab--active" id="loginByUsername">账户登录</span>
+                <span class="signFlowTab" id="loginByPhone">手机登录</span>
+            </div>
+            <form action="" method="post" id="loginFormByUP">
+                <div class="inputDiv">
+                    <label for="username">用户名：</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="inputDiv">
+                    <label for="password">密码：</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="inputDiv" id="submitBtnDiv">
+                    <button type="submit" id="submitBtn">登录</button>
+                </div>
+
+
+            </form>
+            <form action="" method="post" id="loginFormByPC">
+                <div class="inputDiv">
+                    <label for="phone">手机号：</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="inputDiv">
+                    <label for="code">短信验证码：</label>
+                    <input type="text" id="code" name="code" required>
+                    <span id="sendCode">发送验证码</span>
+                </div>
+                <div class="inputDiv" id="submitBtnDiv">
+                    <button type="submit" id="submitBtn">登录</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
