@@ -1,4 +1,5 @@
 import { geoCoordMap } from "../chartsOption/geoCoordMap.js";
+import { messageFlow } from "../middle/messageFlow.js";
 
 export let showDataToMessageFlow = "";
 export let keyPointObjList = [];
@@ -254,6 +255,24 @@ export function setMainMap() {
                 new AMap.InfoWindow({
                     content: name,
                 }).open(map, e.lnglat);
+
+                //显示主图下方窗口 调整主图大小
+                let mainMapAndTitle = document.getElementById(
+                    "mainMapAndTitle"
+                );
+                let messageFlowAndCloseBtn = document.getElementById(
+                    "messageFlowAndCloseBtn"
+                );
+                let messageFlowAreaName = document.getElementById(
+                    "messageFlowAreaName"
+                );
+                messageFlowAreaName.innerHTML = name;
+                messageFlowAndCloseBtn.style.display = "block";
+                messageFlowAndCloseBtn.style.height = "30%";
+                mainMapAndTitle.style.height = "70%";
+                //js动态改变了父容器div宽高，手动刷新图表使其适应容器
+                messageFlow.resize();
+                messageFlow.showLoading();
                 showDataToMessageFlow = name;
             });
             marker.hide();

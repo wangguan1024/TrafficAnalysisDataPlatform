@@ -6,12 +6,13 @@ import {
 
 import { checkTime } from "../../../header/header.js";
 
+export let messageFlow = echarts.init(
+    document.getElementById("messageFlowDiv")
+);
+
 export function setMessageFlow() {
     let date = [];
     let data = [];
-
-    //生产环境
-    let messageFlow = echarts.init(document.getElementById("messageFlowDiv"));
 
     //模拟数据
     // setInterval(function () {
@@ -120,26 +121,9 @@ export function setMessageFlow() {
                         }
                     });
                 }
-
+                messageFlow.hideLoading();
                 //设置主图下方窗口
                 if (newDataObj.name === showDataToMessageFlow) {
-                    //显示主图下方窗口 调整主图大小
-                    let mainMapAndTitle = document.getElementById(
-                        "mainMapAndTitle"
-                    );
-                    let messageFlowAndCloseBtn = document.getElementById(
-                        "messageFlowAndCloseBtn"
-                    );
-                    let messageFlowAreaName = document.getElementById(
-                        "messageFlowAreaName"
-                    );
-                    messageFlowAreaName.innerHTML = newDataObj.name;
-                    messageFlowAndCloseBtn.style.display = "block";
-                    messageFlowAndCloseBtn.style.height = "30%";
-                    mainMapAndTitle.style.height = "70%";
-                    //js动态改变了父容器div宽高，手动刷新图表使其适应容器
-                    messageFlow.resize();
-
                     //检测地名是否变化
                     if (newDataObj.name === lastDataObj.name) {
                         click++;
