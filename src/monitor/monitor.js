@@ -10,12 +10,17 @@ export function setVideoPage() {
             "http://122.51.19.160:8080/getvideo?placeName=" + areaName;
         videoElem.setAttribute("src", videoSrc);
     }
-    let areaSelectDiv = document.getElementById("areaSelectDiv");
+    if (sessionStorage.getItem("monitorArea") !== null) {
+        let areaName = sessionStorage.getItem("monitorArea");
+        setVideoTitle(areaName);
+        setVideoFromServer(areaName);
+    }
     let buttonList = document.getElementsByClassName("button");
     for (let index = 0; index < buttonList.length; index++) {
         const buttonDOM = buttonList[index];
         buttonDOM.addEventListener("click", function (e) {
             let areaName = e.target.innerHTML;
+            sessionStorage.setItem("monitorArea", areaName);
             setVideoTitle(areaName);
             setVideoFromServer(areaName);
         });
