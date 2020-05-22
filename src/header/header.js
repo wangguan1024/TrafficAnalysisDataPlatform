@@ -22,6 +22,9 @@ export function startTime() {
 function setClosePageBtn() {
     let closePage = document.getElementById("closePage");
     closePage.addEventListener("click", function () {
+        fetch("http://122.51.19.160:8080/quitLogin").catch((err) => {
+            console.log(err);
+        });
         window.location.href = "./login.html";
     });
 }

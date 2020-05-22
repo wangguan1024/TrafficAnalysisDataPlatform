@@ -21,7 +21,7 @@
                 <span class="signFlowTab--active" id="loginByUsername">账户登录</span>
                 <span class="signFlowTab" id="loginByPhone">手机登录</span>
             </div>
-            <form action="" method="post" id="loginFormByUP">
+            <form action="" method="post" id="loginFormByUP" class="loginForm">
                 <div class="inputDiv">
                     <label for="username">用户名：</label>
                     <input type="text" id="username" name="username" required>
@@ -30,13 +30,11 @@
                     <label for="password">密码：</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <div class="inputDiv" id="submitBtnDiv">
-                    <button type="submit" id="submitBtn">登录</button>
+                <div class="inputDiv" id="UPsubmitBtnDiv">
+                    <button type="button" id="UPsubmitBtn">登录</button>
                 </div>
-
-
             </form>
-            <form action="" method="post" id="loginFormByPC">
+            <form action="" method="post" id="loginFormByPC" class="loginForm">
                 <div class="inputDiv">
                     <label for="phone">手机号：</label>
                     <input type="text" id="phone" name="phone" required>
@@ -44,12 +42,14 @@
                 <div class="inputDiv">
                     <label for="code">短信验证码：</label>
                     <input type="text" id="code" name="code" required>
-                    <span id="sendCode">发送验证码</span>
+                    <span id="sendCode" tabindex="0">发送验证码</span>
                 </div>
-                <div class="inputDiv" id="submitBtnDiv">
-                    <button type="submit" id="submitBtn">登录</button>
+                <div class="inputDiv" id="PCsubmitBtnDiv">
+                    <button type="button" id="PCsubmitBtn">登录</button>
                 </div>
             </form>
+            <div id="statusDiv" role="alert">
+            </div>
         </div>
     </main>
     <footer></footer>

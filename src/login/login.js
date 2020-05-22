@@ -33,7 +33,6 @@ export function sendCodeFunc() {
             allowClick = false;
             //发送手机号码到服务端
             let phoneNum = document.getElementById("phone").value;
-            // console.log(phoneNum);
             fetch(
                 "http://122.51.19.160:8080/sendVerifyCode?phone=" + phoneNum
             ).catch((err) => {
@@ -63,3 +62,93 @@ export function sendCodeFunc() {
 }
 
 //手机加验证码登录
+export function loginByPC() {
+    const PCsubmitBtn = document.getElementById("PCsubmitBtn");
+    const phone = document.getElementById("phone");
+    const code = document.getElementById("code");
+    function PCsubmit() {
+        let phoneValue = phone.value;
+        let codeValue = code.value;
+        let dataObj = {
+            phone: phoneValue,
+            code: codeValue,
+        };
+        console.log(dataObj);
+        fetch("http://122.51.19.160:8080/loginBypc", {
+            method: "POST", // or 'PUT'
+            body: JSON.stringify(dataObj), // data can be `string` or {object}!
+            headers: new Headers({
+                "Content-Type": "application/json",
+            }),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                let statusDiv = document.getElementById("statusDiv");
+                if (data.status === "success") {
+                    statusDiv.innerHTML = data.data;
+                    statusDiv.setAttribute("class", "alert alert-success");
+                    window.location.href = "./mainPage.html";
+                } else {
+                    statusDiv.innerHTML = data.data;
+                    statusDiv.setAttribute("class", "alert alert-danger");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+    PCsubmitBtn.addEventListener("click", PCsubmit);
+    PCsubmitBtn.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {
+            PCsubmit();
+        }
+    });
+}
+
+//账号密码登录
+export function loginByUP() {
+    const UPsubmitBtn = document.getElementById("UPsubmitBtn");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    function UPsubmit() {
+        let usernameValue = username.value;
+        let passwordValue = password.value;
+        let dataObj = {
+            username: usernameValue,
+            password: passwordValue,
+        };
+        console.log(dataObj);
+        fetch("http://122.51.19.160:8080/loginByup", {
+            method: "POST", // or 'PUT'
+            body: JSON.stringify(dataObj), // data can be `string` or {object}!
+            headers: new Headers({
+                "Content-Type": "application/json",
+            }),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                let statusDiv = document.getElementById("statusDiv");
+                if (data.status === "success") {
+                    statusDiv.innerHTML = data.data;
+                    statusDiv.setAttribute("class", "alert alert-success");
+                    window.location.href = "./mainPage.html";
+                } else {
+                    statusDiv.innerHTML = data.data;
+                    statusDiv.setAttribute("class", "alert alert-danger");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+    UPsubmitBtn.addEventListener("click", UPsubmit);
+    UPsubmitBtn.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {
+            UPsubmit();
+        }
+    });
+}

@@ -42,7 +42,8 @@ main {
 .signFlowTabs {
     position: relative;
     text-align: center;
-    margin: 15px 0;
+    top: 15px;
+    font-size: 1.2rem;
 }
 
 .signFlowTab {
@@ -51,6 +52,7 @@ main {
     border: none;
     background-color: #fff;
 }
+
 .signFlowTab--active {
     position: relative;
     display: inline-block;
@@ -74,12 +76,20 @@ main {
     margin-right: 30px;
 }
 
-/* 登录表单 */
-
-form {
-    display: block;
-    margin-top: 60px;
+/* 登录状态 */
+#statusDiv {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
 }
+
+/* 登录表单 */
+.loginForm {
+    position: relative;
+    margin-top: 60px;
+    margin-bottom: 25px;
+}
+
 #loginFormByPC {
     display: none;
 }
@@ -89,13 +99,15 @@ form {
     text-align: right;
 }
 .inputDiv {
-    margin-top: 20px;
+    margin-top: 15px;
 }
-#submitBtnDiv {
+#UPsubmitBtnDiv,
+#PCsubmitBtnDiv {
     text-align: center;
 }
-#submitBtn {
-    width: 75%;
+#UPsubmitBtn,
+#PCsubmitBtn {
+    width: 40%;
 }
 
 /* 手机登录设置 */

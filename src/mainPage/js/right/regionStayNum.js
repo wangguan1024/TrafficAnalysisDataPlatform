@@ -93,8 +93,6 @@ export function setRegionStayNum() {
             return response.json();
         })
         .then((data) => {
-            console.log("setRegionStayNum");
-            console.log(data);
             data = getTopNArea(data, 6);
             regionStayNum.setOption({
                 series: {
