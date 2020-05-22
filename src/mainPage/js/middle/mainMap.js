@@ -123,6 +123,7 @@ export function setMainMap() {
             });
         }
     }
+
     //websocket获取热力图数据，并渲染进入热力图
     function getRegionStayNumData() {
         let host = "http://122.51.19.160:8080";
@@ -146,6 +147,7 @@ export function setMainMap() {
     }
     getRegionStayNumData();
 
+    //点标记字典
     let keyPointDict = [
         {
             name: "维华商业广场",
@@ -213,12 +215,13 @@ export function setMainMap() {
         console.log(err);
     });
 
-    //重点区域初始化
-    for (let i = 0; i < keyPointDict.length; i++) {
-        let element = keyPointDict[i];
-        let name = element.name;
-        let center = new AMap.LngLat(element.lng, element.lat);
-        AMapUI.loadUI(["overlay/SvgMarker"], function (SvgMarker) {
+    //重点区域marker初始化
+    AMapUI.loadUI(["overlay/SvgMarker"], function (SvgMarker) {
+        for (let i = 0; i < keyPointDict.length; i++) {
+            let element = keyPointDict[i];
+            let name = element.name;
+            let center = new AMap.LngLat(element.lng, element.lat);
+
             if (!SvgMarker.supportSvg) {
                 //当前环境并不支持SVG，此时SvgMarker会回退到父类，即SimpleMarker
             }
@@ -251,48 +254,95 @@ export function setMainMap() {
 
             keyPointObjList.push(obj);
             marker.on("click", function (e) {
+                //传数据至messageFlow
+                showDataToMessageFlow = name;
+                sessionStorage.setItem(
+                    "showDataToMessageFlow",
+                    showDataToMessageFlow
+                );
+                setMessageFlowCloseBtn();
                 //设置消息弹窗
                 new AMap.InfoWindow({
                     content: name,
                 }).open(map, e.lnglat);
-
                 //显示主图下方窗口 调整主图大小
-                let mainMapAndTitle = document.getElementById(
-                    "mainMapAndTitle"
-                );
-                let messageFlowAndCloseBtn = document.getElementById(
-                    "messageFlowAndCloseBtn"
-                );
-                let messageFlowAreaName = document.getElementById(
-                    "messageFlowAreaName"
-                );
-                messageFlowAreaName.innerHTML = name;
-                messageFlowAndCloseBtn.style.display = "block";
-                messageFlowAndCloseBtn.style.height = "30%";
-                mainMapAndTitle.style.height = "70%";
-                //js动态改变了父容器div宽高，手动刷新图表使其适应容器
-                messageFlow.resize();
-                messageFlow.showLoading();
-                showDataToMessageFlow = name;
+                showMessageFlow(name);
             });
             marker.hide();
+        }
+        setMainMapByStorage();
+    });
+
+    //检测sessionStorage内容，若存在内容则读取并渲染页面
+    function setMainMapByStorage() {
+        if (sessionStorage.getItem("keyPointSelectList") !== null) {
+            keyPointSelectList = JSON.parse(
+                sessionStorage.getItem("keyPointSelectList")
+            );
+            refreshCheckBox();
+            showSelectList();
+        }
+    }
+
+    if (sessionStorage.getItem("showDataToMessageFlow") !== null) {
+        showDataToMessageFlow = sessionStorage.getItem("showDataToMessageFlow");
+        showMessageFlow(showDataToMessageFlow);
+        setMessageFlowCloseBtn();
+    }
+
+    //点击marker触发事件调用此函数
+    //显示主图下方窗口 调整主图大小
+    function showMessageFlow(name) {
+        let mainMapAndTitle = document.getElementById("mainMapAndTitle");
+        let messageFlowAndCloseBtn = document.getElementById(
+            "messageFlowAndCloseBtn"
+        );
+        let messageFlowAreaName = document.getElementById(
+            "messageFlowAreaName"
+        );
+        messageFlowAreaName.innerHTML = name;
+        messageFlowAndCloseBtn.style.display = "block";
+        messageFlowAndCloseBtn.style.height = "30%";
+        mainMapAndTitle.style.height = "70%";
+        //js动态改变了父容器div宽高，手动刷新图表使其适应容器
+        messageFlow.resize();
+        messageFlow.showLoading();
+    }
+    //设置关闭按钮
+    function setMessageFlowCloseBtn() {
+        let closeMessageFlowDivBtn = document.getElementById(
+            "closeMessageFlowDivBtn"
+        );
+        let mainMapAndTitle = document.getElementById("mainMapAndTitle");
+        let messageFlowAndCloseBtn = document.getElementById(
+            "messageFlowAndCloseBtn"
+        );
+        // console.log(showDataToMessageFlow);
+        closeMessageFlowDivBtn.addEventListener("click", function () {
+            console.log(showDataToMessageFlow);
+            messageFlowAndCloseBtn.style.display = "none";
+            messageFlowAndCloseBtn.style.height = "0%";
+            mainMapAndTitle.style.height = "100%";
+            showDataToMessageFlow = "";
+            sessionStorage.removeItem("showDataToMessageFlow");
+            console.log("remove");
         });
     }
 
     //下面的设置和清空方法只对overflow为false时有效
-
-    //点击确定按钮，获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
-    let mainMapConfirmBtn = document.getElementById("mainMapConfirmBtn");
-    mainMapConfirmBtn.addEventListener("click", function () {
-        //清空上一次的区域
+    //对checkbox的各类操作
+    //清空上一次选择的区域
+    function clearSelectList() {
         for (let index = 0; index < keyPointObjList.length; index++) {
             let element = keyPointObjList[index];
             if (element.overflow === false) {
                 element.marker.hide();
             }
         }
-        //获取checkbox选择的重点区域
         keyPointSelectList = [];
+    }
+    //获取checkbox选择的重点区域
+    function getSelectList() {
         let myCheckBoxTable = document.getElementById("myCheckBoxTable");
         for (let i = 0; i < myCheckBoxTable.rows.length; i++) {
             for (let j = 0; j < myCheckBoxTable.rows[i].cells.length; j++) {
@@ -302,7 +352,14 @@ export function setMainMap() {
                 }
             }
         }
-        //将选择的重点区域显示在主图上
+        //将checkbox所选地区存入storage
+        sessionStorage.setItem(
+            "keyPointSelectList",
+            JSON.stringify(keyPointSelectList)
+        );
+    }
+    //将选择的重点区域显示在主图上
+    function showSelectList() {
         for (let index = 0; index < keyPointSelectList.length; index++) {
             let selectKeyPoint = keyPointSelectList[index];
             for (let j = 0; j < keyPointObjList.length; j++) {
@@ -313,10 +370,9 @@ export function setMainMap() {
                 }
             }
         }
-    });
-    //点击取消按钮，恢复原表格数据
-    let mainMapRegretBtn = document.getElementById("mainMapRegretBtn");
-    mainMapRegretBtn.addEventListener("click", function () {
+    }
+    //根据selectList中的内容更新checkbox
+    function refreshCheckBox() {
         let myCheckBoxTable = document.getElementById("myCheckBoxTable");
         for (let i = 0; i < myCheckBoxTable.rows.length; i++) {
             for (let j = 0; j < myCheckBoxTable.rows[i].cells.length; j++) {
@@ -325,8 +381,26 @@ export function setMainMap() {
                     if (keyPointSelectList.indexOf(element.name) === -1) {
                         element.checked = false;
                     }
+                } else {
+                    if (keyPointSelectList.indexOf(element.name) !== -1) {
+                        element.checked = true;
+                    }
                 }
             }
         }
+    }
+
+    //点击确定按钮，获取checkbox选择的重点区域,并添加到主图，点击重点区域可动态更新折线图
+    let mainMapConfirmBtn = document.getElementById("mainMapConfirmBtn");
+    mainMapConfirmBtn.addEventListener("click", function () {
+        clearSelectList();
+        getSelectList();
+        showSelectList();
+    });
+
+    //点击取消按钮，恢复原表格数据
+    let mainMapRegretBtn = document.getElementById("mainMapRegretBtn");
+    mainMapRegretBtn.addEventListener("click", function () {
+        refreshCheckBox();
     });
 }

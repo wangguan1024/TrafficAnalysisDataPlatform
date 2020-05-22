@@ -11,6 +11,7 @@ export let messageFlow = echarts.init(
 );
 
 export function setMessageFlow() {
+    console.log(showDataToMessageFlow);
     let date = [];
     let data = [];
 
@@ -121,9 +122,10 @@ export function setMessageFlow() {
                         }
                     });
                 }
-                messageFlow.hideLoading();
+
                 //设置主图下方窗口
                 if (newDataObj.name === showDataToMessageFlow) {
+                    messageFlow.hideLoading();
                     //检测地名是否变化
                     if (newDataObj.name === lastDataObj.name) {
                         click++;
@@ -224,22 +226,3 @@ export function setMessageFlow() {
         messageFlow.resize();
     });
 }
-
-function setMessageFlowCloseBtn() {
-    let closeMessageFlowDivBtn = document.getElementById(
-        "closeMessageFlowDivBtn"
-    );
-    let mainMapAndTitle = document.getElementById("mainMapAndTitle");
-    let messageFlowAndCloseBtn = document.getElementById(
-        "messageFlowAndCloseBtn"
-    );
-
-    closeMessageFlowDivBtn.addEventListener("click", function () {
-        messageFlowAndCloseBtn.style.display = "none";
-        messageFlowAndCloseBtn.style.height = "0%";
-        mainMapAndTitle.style.height = "100%";
-        showDataToMessageFlow = "";
-    });
-}
-
-setMessageFlowCloseBtn();

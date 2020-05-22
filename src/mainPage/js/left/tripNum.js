@@ -8,13 +8,14 @@ export function setTrimNum() {
 
     stateSelectButton.addEventListener("click", function () {
         if (stateSelectButton.innerText === "切换为区域分布") {
-            console.log("切换为区域分布");
+            sessionStorage.setItem("tripNumBySpaceFlag", "true");
             tripNumTitle.innerText = "各区域人口出行量分析";
             stateSelectButton.innerText = "切换为时间分布";
             tripNumDivByTime.style.display = "none";
             tripNumDivBySpace.style.display = "block";
             setChartBySpace();
         } else {
+            sessionStorage.setItem("tripNumBySpaceFlag", "false");
             tripNumTitle.innerText = "各时间人口出行量分析";
             stateSelectButton.innerText = "切换为区域分布";
             tripNumDivBySpace.style.display = "none";
@@ -22,9 +23,19 @@ export function setTrimNum() {
             setChartByTime();
         }
     });
-
-    setChartByTime();
-    // setChartBySpace();
+    //首加载
+    if (sessionStorage.getItem("tripNumBySpaceFlag") !== null) {
+        if (sessionStorage.getItem("tripNumBySpaceFlag") === "true") {
+            console.log("test");
+            tripNumTitle.innerText = "各区域人口出行量分析";
+            stateSelectButton.innerText = "切换为时间分布";
+            tripNumDivByTime.style.display = "none";
+            tripNumDivBySpace.style.display = "block";
+            setChartBySpace();
+        } else {
+            setChartByTime();
+        }
+    }
 
     function setChartByTime() {
         fetch("http://122.51.19.160:8080/getTravelTimeVolumes")
