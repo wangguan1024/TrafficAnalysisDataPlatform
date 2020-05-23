@@ -13,7 +13,7 @@ export function setRegionStayNum() {
             },
         },
 
-        roseType: "angle", //设置成南丁格尔图
+        // roseType: "angle", //设置成南丁格尔图
         textStyle: {
             //各扇形块的名字文本颜色统一
             color: "rgba(255, 255, 255, 0.6)",
@@ -24,113 +24,112 @@ export function setRegionStayNum() {
                 color: "rgba(255, 255, 255, 0.6)",
             },
         },
-        itemStyle: {
-            color: "dodgerblue",
-            shadowBlur: 200,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-        },
+        // itemStyle: {
+        //     color: "dodgerblue",
+        //     shadowBlur: 200,
+        //     shadowColor: "rgba(0, 0, 0, 0.5)",
+        // },
 
-        visualMap: {
-            // 不显示 visualMap 组件，只用于明暗度的映射
-            show: false,
-            // 映射的最小值为 80
-            min: 10,
-            // 映射的最大值为 600
-            max: 300,
-            inRange: {
-                // 明暗度的范围是 0 到 1
-                colorLightness: [0.9, 0.3],
-            },
-        },
+        // visualMap: {
+        //     // 不显示 visualMap 组件，只用于明暗度的映射
+        //     show: false,
+        //     // 映射的最小值为 80
+        //     min: 10,
+        //     // 映射的最大值为 600
+        //     max: 300,
+        //     inRange: {
+        //         // 明暗度的范围是 0 到 1
+        //         colorLightness: [0.9, 0.3],
+        //     },
+        // },
     });
-    //模拟数据
-    // dataList = [
-    //     {
-    //         name: "1区",
-    //         value: 3000,
-    //     },
-    //     {
-    //         name: "2区",
-    //         value: 400,
-    //     },
-    //     {
-    //         name: "3区",
-    //         value: 200,
-    //     },
-    //     {
-    //         name: "4区",
-    //         value: 600,
-    //     },
-    //     {
-    //         name: "5区",
-    //         value: 700,
-    //     },
-    //     {
-    //         name: "6区",
-    //         value: 800,
-    //     },
-    //     {
-    //         name: "7区",
-    //         value: 900,
-    //     },
-    //     {
-    //         name: "8区",
-    //         value: 1000,
-    //     },
-    //     {
-    //         name: "9区",
-    //         value: 1100,
-    //     },
-    //     {
-    //         name: "10区",
-    //         value: 1200,
-    //     },
-    // ];
-
     //从服务器获取数据
+    let selectTopN = document.getElementById("selectTopN");
     fetch("http://122.51.19.160:8080/getAreaStayVolumes")
         .then((response) => {
             return response.json();
         })
-        .then((data) => {
-            data = getTopNArea(data, 6);
-            regionStayNum.setOption({
-                series: {
-                    name: "区人口密度",
-                    type: "pie",
-                    radius: "50%",
-                    data: data,
-                },
-            });
-            window.addEventListener("resize", function () {
-                regionStayNum.resize();
-            });
+        .then((oridata) => {
+            if (sessionStorage.getItem("selectTopN") !== null) {
+                let selectTopNValue = sessionStorage.getItem("selectTopN");
+                selectTopN.value = selectTopNValue;
+                let data = getTopNArea(oridata, selectTopNValue);
+                regionStayNum.setOption({
+                    series: {
+                        name: "区人口密度",
+                        type: "pie",
+                        radius: "50%",
+                        data: data,
+                    },
+                });
+            } else {
+                let data = getTopNArea(oridata, selectTopN.value);
+                regionStayNum.setOption({
+                    series: {
+                        name: "区人口密度",
+                        type: "pie",
+                        radius: "50%",
+                        data: data,
+                    },
+                });
+            }
         })
         .catch((err) => {
             console.log(err);
         });
+    selectTopN.addEventListener("change", function () {
+        let regPart = /^[1-9]$|^10$/;
+        if (regPart.test(selectTopN.value)) {
+            fetch("http://122.51.19.160:8080/getAreaStayVolumes")
+                .then((response) => {
+                    return response.json();
+                })
+                .then((oridata) => {
+                    sessionStorage.setItem("selectTopN", selectTopN.value);
+                    let data = getTopNArea(oridata, selectTopN.value);
+                    regionStayNum.setOption({
+                        series: {
+                            name: "区人口密度",
+                            type: "pie",
+                            radius: "50%",
+                            data: data,
+                        },
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            alert("请输入1-10区间内的数字");
+        }
+    });
+
+    window.addEventListener("resize", function () {
+        regionStayNum.resize();
+    });
     function getTopNArea(dataList, N) {
         let showList = [];
-        let showLength = N;
         dataList = dataList.sort(function (a, b) {
             return b.value - a.value;
         });
-
-        //将排名前showLength的地区加入展示list
-        for (let index = 0; index < showLength - 1; index++) {
-            const data = dataList[index];
+        //将排名前N的地区加入展示list
+        for (let index = 0; index < N; index++) {
+            let data = dataList[index];
             showList.push(data);
         }
-
         //将剩余的地区加入“其他”地区
         let valueSum = 0;
-        for (let index = showLength - 1; index < dataList.length; index++) {
-            valueSum += dataList[index].value;
+        if (N < 10) {
+            for (let index = N; index < dataList.length; index++) {
+                valueSum += dataList[index].value;
+            }
+            let otherArea = {
+                name: "其他地区",
+                value: valueSum,
+            };
+            showList.push(otherArea);
         }
-        let otherArea = new Object();
-        otherArea.name = "其他地区";
-        otherArea.value = valueSum;
-        showList.push(otherArea);
+        console.log(showList);
         return showList;
     }
 }

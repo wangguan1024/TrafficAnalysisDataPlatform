@@ -110,6 +110,15 @@ main {
     width: 40%;
 }
 
+/* 记住账号密码 */
+
+.marginTop5pxDiv {
+    margin-top: 5px;
+}
+#rememberMe {
+    margin-left: 115px;
+}
+
 /* 手机登录设置 */
 
 #code {

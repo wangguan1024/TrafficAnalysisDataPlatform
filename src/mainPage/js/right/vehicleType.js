@@ -30,7 +30,6 @@ export function setVehicleType() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 let vehicleType = echarts.init(
                     document.getElementById("vehicleTypeDiv")
                 );

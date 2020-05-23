@@ -1,8 +1,6 @@
 import "./login.css";
 
-import { loginPageInit, sendCodeFunc, loginByPC, loginByUP } from "./login.js";
+import { loginPageInit, setLoginPage } from "./login.js";
 
 loginPageInit();
-sendCodeFunc();
-loginByPC();
-loginByUP();
+setLoginPage();

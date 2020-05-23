@@ -24,17 +24,16 @@ export function setTrimNum() {
         }
     });
     //首加载
-    if (sessionStorage.getItem("tripNumBySpaceFlag") !== null) {
-        if (sessionStorage.getItem("tripNumBySpaceFlag") === "true") {
-            console.log("test");
-            tripNumTitle.innerText = "各区域人口出行量分析";
-            stateSelectButton.innerText = "切换为时间分布";
-            tripNumDivByTime.style.display = "none";
-            tripNumDivBySpace.style.display = "block";
-            setChartBySpace();
-        } else {
-            setChartByTime();
-        }
+
+    if (sessionStorage.getItem("tripNumBySpaceFlag") === "true") {
+        console.log("test");
+        tripNumTitle.innerText = "各区域人口出行量分析";
+        stateSelectButton.innerText = "切换为时间分布";
+        tripNumDivByTime.style.display = "none";
+        tripNumDivBySpace.style.display = "block";
+        setChartBySpace();
+    } else {
+        setChartByTime();
     }
 
     function setChartByTime() {

@@ -11,7 +11,6 @@ export let messageFlow = echarts.init(
 );
 
 export function setMessageFlow() {
-    console.log(showDataToMessageFlow);
     let date = [];
     let data = [];
 
