@@ -135,3 +135,12 @@
 .btn {
     color: black;
 }
+
+#myCheckBoxTable {
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    font-size: 20px;
+}

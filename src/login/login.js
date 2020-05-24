@@ -159,14 +159,6 @@ export function setLoginPage() {
                                 "class",
                                 "alert alert-success"
                             );
-                            if (rememberMe.checked === true) {
-                                setCookie("This is username", username, 7);
-                                setCookie(username, password, 7);
-                                console.log("setCookie");
-                            } else {
-                                delCookie("This is username");
-                                delCookie(username);
-                            }
                             window.location.href = "./mainPage.html";
                         } else {
                             statusDiv.innerHTML = data.data;

@@ -46,6 +46,8 @@
     border: 0px;
     border-bottom: 1px solid #dbdbdb;
     width: 1.2rem;
+    outline: none;
+    text-align: center;
 }
 
 #regionStayNumDiv {

@@ -107,7 +107,16 @@ main {
 }
 #UPsubmitBtn,
 #PCsubmitBtn {
-    width: 40%;
+    width: 270px;
+    height: 45px;
+    border-width: 0px;
+    border-radius: 3px;
+    background: #1e90ff;
+    cursor: pointer;
+    outline: none;
+    font-family: Microsoft YaHei;
+    color: white;
+    font-size: 17px;
 }
 
 /* 手机登录设置 */
