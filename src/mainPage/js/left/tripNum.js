@@ -40,14 +40,30 @@ export function setTrimNum() {
         fetch("http://122.51.19.160:8080/getTravelTimeVolumes")
             .then((response) => {
                 return response.json();
+                console.log(response.json());
             })
             .then((data) => {
+                console.log(data);
                 let tripNum = echarts.init(
                     document.getElementById("tripNumDivByTime")
                 );
                 tripNum.setOption({
+                    title: {
+                        show: false,
+                        text: "各时间人口出行量分析",
+                    },
                     tooltip: {
                         trigger: "axis",
+                    },
+                    toolbox: {
+                        left: "left",
+                        feature: {
+                            saveAsImage: {
+                                iconStyle: {
+                                    borderColor: "snow",
+                                },
+                            },
+                        },
                     },
                     xAxis: {
                         type: "time",
@@ -130,8 +146,22 @@ export function setTrimNum() {
                 );
                 let reData = makeMapData(data);
                 tripNum.setOption({
+                    title: {
+                        show: false,
+                        text: "各区域人口出行量分析",
+                    },
                     tooltip: {
                         trigger: "axis",
+                    },
+                    toolbox: {
+                        left: "left",
+                        feature: {
+                            saveAsImage: {
+                                iconStyle: {
+                                    borderColor: "snow",
+                                },
+                            },
+                        },
                     },
                     xAxis: {
                         type: "category",

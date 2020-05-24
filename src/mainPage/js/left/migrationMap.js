@@ -180,8 +180,22 @@ export function setMigrationMap() {
             });
 
             migrationMap.setOption({
+                title: {
+                    show: false,
+                    text: "区域迁徙图",
+                },
                 tooltip: {
                     trigger: "item",
+                },
+                toolbox: {
+                    left: "left",
+                    feature: {
+                        saveAsImage: {
+                            iconStyle: {
+                                borderColor: "snow",
+                            },
+                        },
+                    },
                 },
                 legend: {
                     orient: "vertical",

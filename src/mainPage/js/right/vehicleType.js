@@ -1,26 +1,6 @@
 export function setVehicleType() {
-    const areaSelect = document.getElementById("areaSelect");
-
-    if (sessionStorage.getItem("areaOption") !== null) {
-        let areaOption = sessionStorage.getItem("areaOption");
-        setVehicleType(areaOption);
-        for (let index = 0; index < areaSelect.options.length; index++) {
-            const element = areaSelect.options[index];
-            if (element.value === areaOption) {
-                element.selected = true;
-            }
-        }
-    } else {
-        let areaOption = areaSelect.value;
-        setVehicleType(areaOption);
-    }
-
-    areaSelect.addEventListener("change", function () {
-        let areaOption = areaSelect.value;
-        sessionStorage.setItem("areaOption", areaOption);
-        setVehicleType(areaOption);
-    });
-
+    let vehicleType = echarts.init(document.getElementById("vehicleTypeDiv"));
+    let areaSelect = document.getElementById("areaSelect");
     function setVehicleType(areaOption) {
         fetch(
             "http://122.51.19.160:8080/getTravelWayVolumeByArea?area=" +
@@ -30,12 +10,20 @@ export function setVehicleType() {
                 return response.json();
             })
             .then((data) => {
-                let vehicleType = echarts.init(
-                    document.getElementById("vehicleTypeDiv")
-                );
                 let options = {
                     tooltip: {
                         trigger: "axis",
+                    },
+                    toolbox: {
+                        left: "left",
+                        feature: {
+                            saveAsImage: {
+                                name: "出行交通方式统计:" + areaOption,
+                                iconStyle: {
+                                    borderColor: "snow",
+                                },
+                            },
+                        },
                     },
                     dataset: {
                         source: data,
@@ -108,4 +96,24 @@ export function setVehicleType() {
                 console.log(err);
             });
     }
+    //尝试从sessionStorage读取
+    if (sessionStorage.getItem("areaOption") !== null) {
+        let areaOption = sessionStorage.getItem("areaOption");
+        setVehicleType(areaOption);
+        for (let index = 0; index < areaSelect.options.length; index++) {
+            const element = areaSelect.options[index];
+            if (element.value === areaOption) {
+                element.selected = true;
+            }
+        }
+    } else {
+        let areaOption = areaSelect.value;
+        setVehicleType(areaOption);
+    }
+    //change事件处理
+    areaSelect.addEventListener("change", function () {
+        let areaOption = areaSelect.value;
+        sessionStorage.setItem("areaOption", areaOption);
+        setVehicleType(areaOption);
+    });
 }

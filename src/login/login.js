@@ -22,18 +22,6 @@ export function loginPageInit() {
     loginByPhoneBtn.addEventListener("click", clickPhoneBtn);
 
     clickUsernameBtn();
-
-    let usernameCookie = getCookie("This is username");
-
-    if (usernameCookie !== "") {
-        let passwordCookie = getCookie(usernameCookie);
-        document.getElementById("username").value = usernameCookie;
-        document.getElementById("password").value = passwordCookie;
-        document.getElementById("rememberMe").checked = true;
-        console.log("getCookie");
-    } else {
-        document.getElementById("rememberMe").checked = false;
-    }
 }
 
 export function setLoginPage() {
@@ -100,7 +88,7 @@ export function setLoginPage() {
             let codeValue = code.value.trim();
             let dataObj = {
                 phone: phoneValue,
-                code: codeValue,
+                code: Number(codeValue),
             };
             fetch("http://122.51.19.160:8080/loginBypc", {
                 method: "POST", // or 'PUT'
@@ -179,7 +167,7 @@ export function setLoginPage() {
                                 delCookie("This is username");
                                 delCookie(username);
                             }
-                            window.location.href = "./mainPage.html";
+                            // window.location.href = "./mainPage.html";
                         } else {
                             statusDiv.innerHTML = data.data;
                             statusDiv.setAttribute(
@@ -208,30 +196,4 @@ export function setLoginPage() {
         }
     }
     loginByUP();
-}
-
-function setCookie(name, value, expdays) {
-    var expdate = new Date();
-    //设置Cookie过期日期
-    expdate.setDate(expdate.getDate() + expdays);
-    //添加Cookie
-    document.cookie =
-        name + "=" + escape(value) + ";expires=" + expdate.toUTCString();
-}
-function getCookie(name) {
-    //获取name在Cookie中起止位置
-    var start = document.cookie.indexOf(name + "=");
-
-    if (start != -1) {
-        start = start + name.length + 1;
-        //获取value的终止位置
-        var end = document.cookie.indexOf(";", start);
-        if (end == -1) end = document.cookie.length;
-        //截获cookie的value值,并返回
-        return unescape(document.cookie.substring(start, end));
-    }
-    return "";
-}
-function delCookie(name) {
-    setCookie(name, "", -1);
 }

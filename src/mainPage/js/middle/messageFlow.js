@@ -152,6 +152,10 @@ export function setMessageFlow() {
                         addData(false, newDataObj.nowNum);
                         //初始化or重新设置预警线
                         messageFlow.setOption({
+                            title: {
+                                show: false,
+                                text: "热点地区实时监测",
+                            },
                             grid: {
                                 top: "20%",
                                 left: "10%",
@@ -183,6 +187,19 @@ export function setMessageFlow() {
                             },
                             tooltip: {
                                 trigger: "axis",
+                            },
+                            toolbox: {
+                                left: "left",
+                                feature: {
+                                    saveAsImage: {
+                                        name:
+                                            "热点区域实时监测:" +
+                                            showDataToMessageFlow,
+                                        iconStyle: {
+                                            borderColor: "snow",
+                                        },
+                                    },
+                                },
                             },
                             series: [
                                 {

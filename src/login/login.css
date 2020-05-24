@@ -30,12 +30,12 @@ main {
     margin: 0 auto;
     margin-left: 65%;
     width: 400px;
-    height: 500px;
+    height: 400px;
     position: relative;
     background-color: white;
     opacity: 0.8;
-    border: 5px solid lightskyblue;
-    border-radius: 5px;
+    border: 2px solid lightskyblue;
+    border-radius: 2px;
 }
 
 /* 登录方式切换按钮 */
@@ -110,15 +110,6 @@ main {
     width: 40%;
 }
 
-/* 记住账号密码 */
-
-.marginTop5pxDiv {
-    margin-top: 5px;
-}
-#rememberMe {
-    margin-left: 115px;
-}
-
 /* 手机登录设置 */
 
 #code {
@@ -131,4 +122,5 @@ main {
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+    outline: none;
 }

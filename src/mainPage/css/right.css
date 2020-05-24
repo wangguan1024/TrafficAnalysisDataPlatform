@@ -34,17 +34,18 @@
     top: 1%;
     position: absolute;
     z-index: 2;
-    width: 100%;
+    width: 80%;
     text-align: center;
+    left: 10%;
     color: snow;
     font-size: 1rem;
 }
 
 #selectTopN {
     background-color: #0c1d30;
-    border: 1px solid darkgray;
-    border-radius: 3px;
-    width: 1.5rem;
+    border: 0px;
+    border-bottom: 1px solid #dbdbdb;
+    width: 1.2rem;
 }
 
 #regionStayNumDiv {
@@ -73,6 +74,7 @@
     display: inline;
     border: 1px solid darkgray;
     border-radius: 5px;
+    outline: none;
 }
 
 #vehicleTypeDiv {
