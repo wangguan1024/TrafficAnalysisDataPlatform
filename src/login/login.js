@@ -167,7 +167,7 @@ export function setLoginPage() {
                                 delCookie("This is username");
                                 delCookie(username);
                             }
-                            // window.location.href = "./mainPage.html";
+                            window.location.href = "./mainPage.html";
                         } else {
                             statusDiv.innerHTML = data.data;
                             statusDiv.setAttribute(
