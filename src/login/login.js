@@ -50,23 +50,25 @@ export function setLoginPage() {
                         console.log(err);
                     });
                     //样式调整
-                    sendCodeBtn.setAttribute("disabled", "disabled");
-                    sendCodeBtn.style.cursor = "default";
-                    sendCodeBtn.style.color = "grey";
+
                     //设置发送验证码时间间隔
                     let timeClock = 60;
                     let timeStop = setInterval(function () {
-                        if (timeClock === 0) {
-                            allowClick = true;
+                        timeClock--;
+                        if (timeClock > 0) {
+                            console.log(timeClock);
+                            sendCodeBtn.innerHTML = timeClock + "s后重试";
+                            sendCodeBtn.setAttribute("disabled", true);
+                            sendCodeBtn.style.cursor = "default";
+                            sendCodeBtn.style.color = "grey";
+                        } else {
                             timeClock = 60;
                             sendCodeBtn.innerHTML = "发送验证码";
-                            sendCodeBtn.removeAttribute("disabled");
                             sendCodeBtn.style.cursor = "pointer";
                             sendCodeBtn.style.color = "black";
+                            sendCodeBtn.removeAttribute("disabled");
                             clearInterval(timeStop);
                         }
-                        sendCodeBtn.innerHTML = timeClock + "s后重试";
-                        timeClock--;
                     }, 1000);
                 }
             } else {
