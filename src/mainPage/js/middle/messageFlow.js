@@ -68,12 +68,14 @@ export function setMessageFlow() {
                                 SvgMarker
                             ) {
                                 keyPointObj.marker.setSvgShape(
-                                    new SvgMarker.Shape.TriangleFlagPin({
-                                        height: 25, //高度
-                                        //width: **, //不指定时会维持默认的宽高比
-                                        fillColor: "orangered", //填充色
-                                        strokeWidth: 1, //描边宽度
-                                        strokeColor: "#666", //描边颜色
+                                    new SvgMarker.Shape.IconFont({
+                                        // 参见 symbol引用, http://www.iconfont.cn/plus/help/detail?helptype=code
+                                        symbolJs:
+                                            "http://at.alicdn.com/t/font_1839418_b7satvs6cx.js",
+                                        icon: "iconweizhi",
+                                        size: 20,
+                                        offset: [-10, -22],
+                                        fillColor: "red",
                                     })
                                 );
                             });
@@ -94,16 +96,15 @@ export function setMessageFlow() {
                                         ["overlay/SvgMarker"],
                                         function (SvgMarker) {
                                             keyPointObj.marker.setSvgShape(
-                                                new SvgMarker.Shape.TriangleFlagPin(
-                                                    {
-                                                        height: 20, //高度
-                                                        //width: **, //不指定时会维持默认的宽高比
-                                                        fillColor:
-                                                            "springgreen", //填充色
-                                                        strokeWidth: 1, //描边宽度
-                                                        strokeColor: "#666", //描边颜色
-                                                    }
-                                                )
+                                                new SvgMarker.Shape.IconFont({
+                                                    // 参见 symbol引用, http://www.iconfont.cn/plus/help/detail?helptype=code
+                                                    symbolJs:
+                                                        "http://at.alicdn.com/t/font_1839418_b7satvs6cx.js",
+                                                    icon: "iconweizhi",
+                                                    size: 20,
+                                                    offset: [-10, -22],
+                                                    fillColor: "lawngreen",
+                                                })
                                             );
                                         }
                                     );

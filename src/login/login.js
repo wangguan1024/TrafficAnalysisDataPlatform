@@ -56,7 +56,6 @@ export function setLoginPage() {
                     let timeStop = setInterval(function () {
                         timeClock--;
                         if (timeClock > 0) {
-                            console.log(timeClock);
                             sendCodeBtn.innerHTML = timeClock + "s后重试";
                             sendCodeBtn.setAttribute("disabled", true);
                             sendCodeBtn.style.cursor = "default";

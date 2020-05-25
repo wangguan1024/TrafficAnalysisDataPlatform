@@ -227,12 +227,13 @@ export function setMainMap() {
             }
 
             //创建一个shape实例，比如水滴状
-            let shape = new SvgMarker.Shape.TriangleFlagPin({
-                height: 20, //高度
-                //width: **, //不指定时会维持默认的宽高比
-                fillColor: "springgreen", //填充色
-                strokeWidth: 1, //描边宽度
-                strokeColor: "#666", //描边颜色
+            let shape = new SvgMarker.Shape.IconFont({
+                // 参见 symbol引用, http://www.iconfont.cn/plus/help/detail?helptype=code
+                symbolJs: "http://at.alicdn.com/t/font_1839418_b7satvs6cx.js",
+                icon: "iconweizhi",
+                size: 20,
+                offset: [-10, -22],
+                fillColor: "lawngreen",
             });
 
             //利用该shape构建SvgMarker
@@ -241,9 +242,12 @@ export function setMainMap() {
                 shape,
                 //第二个参数为SimpleMarker的构造参数（iconStyle除外）
                 {
-                    showPositionPoint: true, //显示定位点
                     map: map,
                     position: center,
+                    showPositionPoint: {
+                        color: "white",
+                        size: 2,
+                    }, //显示定位点
                 }
             );
             let obj = {
