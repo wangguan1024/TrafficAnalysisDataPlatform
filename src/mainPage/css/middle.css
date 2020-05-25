@@ -31,6 +31,21 @@
     font-weight: bold;
 }
 
+#legendDiv {
+    position: absolute;
+    z-index: 2;
+    left: calc(1.5%);
+    top: calc(1%);
+    font-size: 1rem;
+    color: white;
+}
+#legendDiv #greenIcon {
+    color: lawngreen;
+}
+#legendDiv #redIcon {
+    color: red;
+}
+
 #mainMapSelectBtn {
     position: absolute;
     z-index: 2;
