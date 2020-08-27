@@ -13,7 +13,7 @@ export function setMainMap() {
         center: [123.38333, 42.0],
         pitch: 0,
         //设置地图背景图
-        mapStyle: "amap://styles/40035571fa9fdd05a26fe1b05f48fdc9",
+        mapStyle: "amap://styles/ad8c77d537e164108ec920da48fe6915",
     });
     // map.setDefaultCursor("pointer");
 
