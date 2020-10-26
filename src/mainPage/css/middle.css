@@ -1,0 +1,118 @@
+#middleLine {
+    width: 52%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.middleLineDiv {
+    position: relative;
+    height: 92%;
+    width: 84%;
+    margin-left: 8%;
+    margin-right: 8%;
+    border: snow solid 1px;
+}
+#mainMapAndTitle {
+    height: 100%;
+}
+
+#mainMapTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-5%);
+    width: 100%;
+    text-align: center;
+}
+#mainMapTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#legendDiv {
+    position: absolute;
+    z-index: 2;
+    left: calc(1.5%);
+    top: calc(1%);
+    font-size: 1rem;
+    color: white;
+}
+#legendDiv #greenIcon {
+    color: lawngreen;
+}
+#legendDiv #redIcon {
+    color: red;
+}
+
+#mainMapSelectBtn {
+    position: absolute;
+    z-index: 2;
+    right: calc(1.5%);
+    top: calc(1%);
+    color: white;
+    background-color: #0b122e;
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    outline: none;
+}
+
+#mainMapDiv {
+    z-index: 1;
+    position: relative;
+    width: calc(100%);
+    height: calc(100%);
+}
+
+#messageFlowAndCloseBtn {
+    display: none;
+    position: relative;
+    width: calc(100%);
+    height: calc(0%);
+    border-top: 1px solid white;
+}
+
+#messageFlowTitleDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(-12%);
+    width: 100%;
+    text-align: center;
+}
+
+#messageFlowTitleDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+#messageFlowAreaNameDiv {
+    position: absolute;
+    z-index: 2;
+    top: calc(0%);
+    width: 80%;
+    text-align: center;
+    left: 10%;
+}
+
+#messageFlowAreaNameDiv span {
+    display: inline-block;
+    color: lightskyblue;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#closeMessageFlowDivBtn {
+    position: absolute;
+    z-index: 2;
+    right: calc(2%);
+    top: calc(1%);
+    cursor: pointer;
+    color: white;
+}
+
+#messageFlowDiv {
+    width: calc(100%);
+    height: calc(100%);
+}
